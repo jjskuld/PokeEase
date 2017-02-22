@@ -1,14 +1,14 @@
 {
   "globalDependencies": {
-    "geojson": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/geojson/geojson.d.ts",
-    "googlemap.infobubble": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/googlemaps.infobubble/google.maps.infobubble.d.ts",
-    "googlemaps": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/googlemaps/google.maps.d.ts",
-    "ion.rangeslider": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/ion.rangeSlider/ion.rangeSlider.d.ts",
-    "jquery": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/jquery/jquery.d.ts",
-    "leaflet": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/leaflet/leaflet.d.ts",
-    "lodash": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/lodash/lodash.d.ts",
-    "moment": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/moment/moment.d.ts",
-	"es6-promise" : "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/es6-promise/es6-promise.d.ts",
-	"jsoneditoronline": "registry:dt/jsoneditoronline#0.0.0+20160324185237"
+    "geojson": "registry:dt/geojson#0.0.0+20160619034323",
+    "googlemap.infobubble": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1.4.1/googlemaps.infobubble/google.maps.infobubble.d.ts",
+    "googlemaps": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1.4.1/googlemaps/google.maps.d.ts",
+    "ion.rangeslider": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1.4.1/ion.rangeSlider/ion.rangeSlider.d.ts",
+    "jquery": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1.4.1/jquery/jquery.d.ts",
+    "leaflet": "registry:dt/leaflet#1.0.0+20160630180443",
+    "lodash": "registry:dt/lodash#4.14.0+20160830145422",
+    "moment": "registry:dt/moment#2.11.1+20160829143156",
+    "es6-promise" : "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1.4.1/es6-promise/es6-promise.d.ts",
+    "jsoneditoronline": "registry:dt/jsoneditoronline#0.0.0+20160324185237"
   }
 }
