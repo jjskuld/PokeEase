@@ -86,12 +86,12 @@ class SettingsMenuController implements ISettingsMenuController {
         this.updateConnectionStr(settings);
         this.settingsElements.mapProvider.filter(`[value='${settings.mapProvider}']`).prop("checked", true);
         this.setToggleSetting(this.settingsElements.mapFolllowPlayer, settings.mapFolllowPlayer);
-        this.settingsElements.mapClearing.val(settings.mapClearing);
+        this.settingsElements.mapClearing.val(settings.mapClearing.toString());
         this.settingsElements.mapGoogleApiKey.val(settings.mapGoogleApiKey);
         this.settingsElements.mapOsmApiKey.val(settings.mapOsmApiKey);
 
         this.settingsElements.clientAddress.val(settings.clientAddress);
-        this.settingsElements.clientPort.val(settings.clientPort);
+        this.settingsElements.clientPort.val(settings.clientPort.toString());
         this.setToggleSetting(this.settingsElements.clientUseSSL, settings.clientUseSSL);
 
         this.setNotificationSettings(this.settingsElements.notificationsJournal, settings.notificationsJournal);
