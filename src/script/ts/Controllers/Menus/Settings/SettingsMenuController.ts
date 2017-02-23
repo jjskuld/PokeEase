@@ -52,6 +52,17 @@ class SettingsMenuController implements ISettingsMenuController {
                 pokemonTransfer: this.config.settingsMenuElement.find("[name='settings-notifications-toast-pokemon-transfer']")
             },
 
+			notificationsAudio: {
+                pokestopUsed: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokestop-used']"),
+                pokemonCapture: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-capture']"),
+                pokemonSnipe: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-snipe']"),
+                pokemonEvolved: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-evolved']"),
+                eggHatched: this.config.settingsMenuElement.find("[name='settings-notifications-audio-egg-hatched']"),
+                incubatorStatus: this.config.settingsMenuElement.find("[name='settings-notifications-audio-incubator-status']"),
+                itemRecycle: this.config.settingsMenuElement.find("[name='settings-notifications-audio-item-recycle']"),
+                pokemonTransfer: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-transfer']")
+            },
+			
             notificationsJournalClearingAnimation: this.config.settingsMenuElement.find("[name='settings-notifications-journal-clearing-animation']")
         }
     }
@@ -97,6 +108,7 @@ class SettingsMenuController implements ISettingsMenuController {
         this.setNotificationSettings(this.settingsElements.notificationsJournal, settings.notificationsJournal);
         this.setNotificationSettings(this.settingsElements.notificationsDesktop, settings.notificationsDesktop);
         this.setNotificationSettings(this.settingsElements.notificationsToast, settings.notificationsToast);
+		this.setNotificationSettings(this.settingsElements.notificationsAudio, settings.notificationsAudio);
         this.setToggleSetting(this.settingsElements.notificationsJournalClearingAnimation, settings.notificationsJournalClearingAnimation);
     }
 
@@ -134,6 +146,7 @@ class SettingsMenuController implements ISettingsMenuController {
             notificationsJournal: this.getNotificationSettings(this.settingsElements.notificationsJournal),
             notificationsDesktop: this.getNotificationSettings(this.settingsElements.notificationsDesktop),
             notificationsToast: this.getNotificationSettings(this.settingsElements.notificationsToast),
+			notificationsAudio: this.getNotificationSettings(this.settingsElements.notificationsAudio),
             notificationsJournalClearingAnimation: this.settingsElements.notificationsJournalClearingAnimation.hasClass("active")
         };
         return settings;
