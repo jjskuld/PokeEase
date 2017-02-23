@@ -104,7 +104,7 @@ class PokemonMenuController implements IPokemonMenuController {
         }
         this.config.pokemonLoadingSpinner.fadeOut(150);
     }
-    private dispayPokemonInfo= (pokemon : IPokemonListEntry) :void =>{
+    private displayPokemonInfo= (pokemon : IPokemonListEntry) :void =>{
         const info : IPokemonInfo = pokemon;
         info.Name =  this.config.translationController.translation.pokemonNames[pokemon.PokemonId];
         /*
@@ -151,7 +151,7 @@ class PokemonMenuController implements IPokemonMenuController {
         const pokemon = _.find(this.pokemonList.Pokemons, p => p.Id === pokemonUniqueIdStr);
         this.currentPokemon = pokemon;
         const info : IPokemonInfo = pokemon;
-        this.dispayPokemonInfo(info);
+        this.displayPokemonInfo(info);
         
     }
 
@@ -169,7 +169,7 @@ class PokemonMenuController implements IPokemonMenuController {
         if(this.currentPokemon.Id == pkm.Id) {
             this.currentPokemon.Cp = pkm.Cp;
             this.currentPokemon.FamilyCandies = pkm.FamilyCandies;
-            this.dispayPokemonInfo(this.currentPokemon);
+            this.displayPokemonInfo(this.currentPokemon);
             
         }
 
