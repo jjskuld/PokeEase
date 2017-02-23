@@ -1,3 +1,3 @@
 interface IAudioNotificationControllerConfig extends INotificationControllerConfig {
-	container: JQuery;
+	container: any;
 } 
