@@ -60,6 +60,17 @@
             itemRecycle: this.coalesceMap(allSettings, s => s.notificationsToast && s.notificationsToast.itemRecycle),
             pokemonTransfer: this.coalesceMap(allSettings, s => s.notificationsToast && s.notificationsToast.pokemonTransfer)
         };
+		
+		const notificationsAudio: INotificationSettings = {
+            pokestopUsed: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.pokestopUsed),
+            pokemonCapture: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.pokemonCapture),
+            pokemonSnipe: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.pokemonSnipe),
+            pokemonEvolved: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.pokemonEvolved),
+            eggHatched: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.eggHatched),
+            incubatorStatus: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.incubatorStatus),
+            itemRecycle: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.itemRecycle),
+            pokemonTransfer: this.coalesceMap(allSettings, s => s.notificationsAudio && s.notificationsAudio.pokemonTransfer)
+        };
 
         return {
             mapProvider: this.coalesceMap(allSettings, s => s.mapProvider),
@@ -75,6 +86,7 @@
             notificationsJournal: notificationsJournal,
             notificationsDesktop: notificationsDesktop,
             notificationsToast: notificationsToast,
+			notificationsAudio: notificationsAudio,
             notificationsJournalClearingAnimation: this.coalesceMap(allSettings, s => s.notificationsJournalClearingAnimation)
         }
     }
@@ -130,6 +142,7 @@
         equal = equal && this.notificationSettingsEqual(settings.notificationsJournal, to.notificationsJournal);
         equal = equal && this.notificationSettingsEqual(settings.notificationsDesktop, to.notificationsDesktop);
         equal = equal && this.notificationSettingsEqual(settings.notificationsToast, to.notificationsToast);
+		equal = equal && this.notificationSettingsEqual(settings.notificationsAudio, to.notificationsAudio);
 
         equal = equal && settings.notificationsJournalClearingAnimation === to.notificationsJournalClearingAnimation;
 
