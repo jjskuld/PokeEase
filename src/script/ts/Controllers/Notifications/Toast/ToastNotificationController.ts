@@ -59,7 +59,7 @@ class ToastNotificationController implements INotificationController {
         if (!this.config.notificationSettings.pokemonTransfer) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         this.addNotification("Transfer", pokemonName);
     }
 

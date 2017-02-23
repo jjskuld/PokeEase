@@ -199,11 +199,11 @@ CP              <span class="cp"> ${eggHatched.Cp} </span>/<span class="max-cp">
         if (!this.config.notificationSettings.pokemonTransfer) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         const roundedPerfection = Math.round(pokemonTransfer.Perfection * 100) / 100;
 
         const html = `<div class="image">
-                          <img src="images/pokemon/${pokemonTransfer.Id}.png"/>
+                          <img src="images/pokemon/${pokemonTransfer.PokemonId}.png"/>
                       </div>
                       <div class="info">
                           ${pokemonName}

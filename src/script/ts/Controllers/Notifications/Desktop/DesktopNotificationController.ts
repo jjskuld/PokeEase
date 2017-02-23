@@ -110,10 +110,10 @@ IV: ${roundedPerfection}`,
         if (!this.checkPermissions()) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         this.addNotification("Transfer", {
             body: `${pokemonName}`,
-            icon: `images/pokemon/${pokemonTransfer.Id}.png`
+            icon: `images/pokemon/${pokemonTransfer.PokemonId}.png`
         });
     }
 
