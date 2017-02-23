@@ -1,3 +1,4 @@
+/// <reference path="../../../../index.d.ts" />
 class JournalNotificationController implements INotificationController {
     public config: IJournalNotificationControllerConfig;
     private notifications: INotification[];
@@ -30,7 +31,14 @@ class JournalNotificationController implements INotificationController {
     private exampleClicked = (ev: JQueryEventObject): void => {
         this.addNotificationExample();
     }
+    public addPokemonUpgraded = (ev:IUpgradeEvent) : void => {
+        const data : IPokemonUpgradedData = ev;
+        data.PokemonName = this.config.translationController.translation.pokemonNames[ev.PokemonId];
+        this.addNotification(data, 
+            app.templates.Notifications.Journals.PokemonUpgraded(data),
+            "Upgrade");
 
+    }
     private onUpdateTimerElapsed = () => {
         const currentTime = Date.now();
         _.each(this.notifications, notification => {
@@ -177,16 +185,25 @@ CP              <span class="cp"> ${eggHatched.Cp} </span>/<span class="max-cp">
 
         this.addNotification(itemRecycle, html, "recycle");
     }
-
+    public addHumanSnipeReachedDestination= (): void => {
+        
+    }
+    public addHumanWalkSnipeStart = (startEvent: IHumanWalkSnipeStartEvent): void => {
+        let data : ISnipeStartNotificationData = startEvent;
+        //additional data in here.
+        this.addNotification(startEvent, 
+            app.templates.Notifications.Journals.SnipeStartNotification(data),"Snipe");
+        
+    }
     public addNotificationPokemonTransfer = (pokemonTransfer: IPokemonTransferEvent): void => {
         if (!this.config.notificationSettings.pokemonTransfer) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         const roundedPerfection = Math.round(pokemonTransfer.Perfection * 100) / 100;
 
         const html = `<div class="image">
-                          <img src="images/pokemon/${pokemonTransfer.Id}.png"/>
+                          <img src="images/pokemon/${pokemonTransfer.PokemonId}.png"/>
                       </div>
                       <div class="info">
                           ${pokemonName}
@@ -198,7 +215,7 @@ CP              <span class="cp"> ${eggHatched.Cp} </span>/<span class="max-cp">
 
     private addNotification = (event: IEvent, innerHtml: string, eventType: string, extendedInfoHtml?: string): void => {
         extendedInfoHtml = extendedInfoHtml || "";
-        const eventTypeName = this.config.translationController.translation.eventTypes[eventType];
+        const eventTypeName = this.config.translationController.translation.eventTypes[eventType] || eventType;
         const dateStr = moment().format("MMMM Do YYYY, HH:mm:ss");
         const html =
             `<div class="event ${eventType}">

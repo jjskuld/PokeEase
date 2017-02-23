@@ -3,6 +3,13 @@
 # PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
 
+New feature is adding day by date
+
+FOR DEV
+
+NPM INSTALL
+GRUNT BUILD
+
 <a href="https://discord.gg/Q9T2USY">
   <img src="https://discordapp.com/api/guilds/213010121356214272/widget.png?style=banner2"/>
 </a>

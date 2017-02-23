@@ -1,4 +1,6 @@
-﻿class DesktopNotificationController implements INotificationController {
+﻿/// <reference path="../../../../index.d.ts" />
+
+class DesktopNotificationController implements INotificationController {
     public config: IDesktopNotificationControllerConfig;
 
     constructor(config: IDesktopNotificationControllerConfig) {
@@ -10,6 +12,9 @@
 
     private exampleClicked = (ev: JQueryEventObject): void => {
         this.addNotificationExample();
+    }
+    public addHumanSnipeReachedDestination= (ev:IHumanWalkSnipeReachedEvent): void => {
+        
     }
 
     private checkPermissions = (): boolean => {
@@ -33,6 +38,10 @@
 
     private updateCurrentPermission = (status: string) => {
         this.config.permissionElement.text(status);
+    }
+
+    public addPokemonUpgraded = (ev:IUpgradeEvent) : void => {
+        
     }
 
     public addNotificationExample = (): void => {
@@ -101,10 +110,10 @@ IV: ${roundedPerfection}`,
         if (!this.checkPermissions()) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         this.addNotification("Transfer", {
             body: `${pokemonName}`,
-            icon: `images/pokemon/${pokemonTransfer.Id}.png`
+            icon: `images/pokemon/${pokemonTransfer.PokemonId}.png`
         });
     }
 
@@ -148,7 +157,11 @@ IV: ${roundedPerfection}`,
             icon: `images/items/0.png`
         });
     }
+    public addHumanWalkSnipeStart = (startEvent: IHumanWalkSnipeStartEvent): void => {
 
+        //alert('alert : add event to desktop.....')
+        
+    }
     private addNotification = (title: string, options: NotificationOptions) => {
         const notification = new Notification(title, options);
     }

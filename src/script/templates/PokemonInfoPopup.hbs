@@ -1,0 +1,33 @@
+﻿<div class="iw-wrap iw-pokemon iw-{{Rarity}}">
+    <div class="iw-status">#{{PokemonId}} - {{friendlyRarityName Rarity}} </div>
+    <img src="images/pokemon/{{PokemonId}}.png" alt="{{Name}} icon" class="iw-icon">
+    <div class="iw-header iw-name">
+        <span class="iw-detail-value">{{Name}}</span>
+        <span class="iw-detail-header">{{CatchType}}</span>
+    </div>
+    <div class="iw-content">
+        <div class="iw-detail" >
+            <span class="iw-detail-header">Level</span>
+            <span class="iw-detail-value">{{Level}}</span>
+        </div>
+        <div class="iw-detail" >
+            <span class="iw-detail-header">IV</span>
+            <span class="iw-detail-value">{{Perfection}}%</span>
+        </div>
+
+        <div class="iw-detail">
+            <span class="iw-detail-header">CP</span>
+            <span class="iw-detail-value">{{Cp}}/{{MaxCp}}</span>
+        </div>
+        <hr class="iw-gym-hr-defender" style="display: none">
+
+        <div class="iw-detail iw-latitude">
+            <span class="iw-detail-header">Latitude</span>
+            <span class="iw-detail-value">{{roundCoord Latitude}}</span>
+        </div>
+        <div class="iw-detail iw-longitude">
+            <span class="iw-detail-header">Longitude</span>
+            <span class="iw-detail-value">{{roundCoord Longitude}}</span>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 interface IRequest {
     Command: string;
-    Data?: string;
+    Data?: any;
     PokemonId?: string;
     Id?: string;
 }

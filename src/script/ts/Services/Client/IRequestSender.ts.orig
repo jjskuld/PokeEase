@@ -1,0 +1,20 @@
+interface IRequestSender {
+    sendGetConfigRequest();
+    sendPokemonListRequest();
+    sendEggsListRequest();
+    sendInventoryListRequest();
+    sendPlayerStatsRequest();
+    sendGetPokemonSettingsRequest();
+    sendTransferPokemonRequest(pokemonId: string);
+    sendEvolvePokemonRequest(pokemonId: string);
+    sendHumanSnipePokemonRemoveRequest(pokemonId: string);
+    sendHumanSnipePokemonSnipeRequest(pokemonId: string);
+<<<<<<< HEAD
+    sendHumanSnipPokemonListUpdateRequest();
+    sendRecycleRequest(itemId: number, count: number);
+    sendMoveToRequest(lat: number, lng: number, teleport: boolean)
+=======
+    sendPokemonSnipeListUpdateRequest();
+>>>>>>> a3088439a473df0edc59dc6e9d33625752dc336f
+    currentBotFamily: BotFamily;
+}

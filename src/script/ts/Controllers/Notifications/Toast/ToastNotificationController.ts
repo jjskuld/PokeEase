@@ -1,4 +1,6 @@
-﻿class ToastNotificationController implements INotificationController {
+﻿/// <reference path="../../../../index.d.ts" />
+
+class ToastNotificationController implements INotificationController {
     public config: IToastNotificationControllerConfig;
 
     constructor(config: IToastNotificationControllerConfig) {
@@ -14,12 +16,21 @@
     public addNotificationExample = (): void => {
         this.addNotification("Example", "This is a toast notification");
     }
+     public addHumanSnipeReachedDestination= (ev: IHumanWalkSnipeReachedEvent): void => {
+        this.addNotification("Snipe reach", "Searching for pokemon ....","#2196f3","#fff", Math.max(3000,ev.PauseDuration*1000));
+    }
+     public addHumanWalkSnipeStart = (startEvent: IHumanWalkSnipeStartEvent): void => {
+        //alert('alert : add event to toast.....')
+    }
 
     public addNotificationPokeStopUsed = (fortUsed: IFortUsedEvent): void => {
         if (!this.config.notificationSettings.pokestopUsed) {
             return;
         }
         this.addNotification("Pokestop", fortUsed.Name);
+    }
+    public addPokemonUpgraded = (ev:IUpgradeEvent) : void => {
+        
     }
 
     public addNotificationPokemonCapture = (pokemonCatches: IPokemonCaptureEvent[], itemsUsedForCapture: number[]): void=> {
@@ -48,7 +59,7 @@
         if (!this.config.notificationSettings.pokemonTransfer) {
             return;
         }
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.Id];
+        const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         this.addNotification("Transfer", pokemonName);
     }
 

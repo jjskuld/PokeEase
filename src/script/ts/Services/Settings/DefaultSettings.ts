@@ -4,7 +4,7 @@
             mapProvider: MapProvider.GMaps,
             mapFolllowPlayer: true,
             mapClearing: 0,
-            mapGoogleApiKey: "",
+            mapGoogleApiKey: "AIzaSyBjrq_CCDjmgNLJZnLBrMRgIxTJrgW_LaY",
             mapOsmApiKey: "",
 
             clientAddress: "127.0.0.1",
@@ -31,6 +31,16 @@
                 pokemonTransfer: false,
             },
             notificationsToast: {
+                pokestopUsed: false,
+                pokemonCapture: false,
+                pokemonSnipe: false,
+                pokemonEvolved: false,
+                eggHatched: false,
+                incubatorStatus: false,
+                itemRecycle: false,
+                pokemonTransfer: false,
+            },
+			notificationsAudio: {
                 pokestopUsed: false,
                 pokemonCapture: false,
                 pokemonSnipe: false,
