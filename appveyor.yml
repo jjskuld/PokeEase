@@ -70,9 +70,6 @@ environment:
 install:
 - git submodule update --init --recursive
 - npm install
-- npm install -g grunt-cli
-- ps: >-
-    $env:path += ";" + (Get-Item "Env:AppData").Value + "\npm"
 
 #---------------------------------#
 #       build configuration       #
@@ -109,7 +106,6 @@ after_build:
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
-  - grunt build
   
 #---------------------------------#
 #       tests configuration       #
