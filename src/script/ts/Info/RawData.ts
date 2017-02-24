@@ -153,6 +153,8 @@
         weightStdDev: number;
         familyId: string;
         candyToEvolve?: number;
+		kmBuddyDistance?: number;
+		modelHeight?: number;
         parentPokemonId?: string;
         rarity?: string;
     }
@@ -179,7 +181,7 @@
         durationMs: number;
         damageWindowStartMs: number;
         damageWindowEndMs: number;
-        energyDelta: number;
+        energyDelta?: number;
         healScalar?: number;
     }
 
