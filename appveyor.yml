@@ -69,6 +69,9 @@ environment:
 install:
 - git submodule update --init --recursive
 - npm install
+- npm install -g grunt-cli
+- ps: >-
+    $env:path += ";" + (Get-Item "Env:AppData").Value + "\npm"
 
 #---------------------------------#
 #       build configuration       #
