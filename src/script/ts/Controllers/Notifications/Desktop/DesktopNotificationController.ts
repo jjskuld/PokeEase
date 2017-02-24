@@ -5,7 +5,6 @@ class DesktopNotificationController implements INotificationController {
 
     constructor(config: IDesktopNotificationControllerConfig) {
         this.config = config;
-        this.checkPermissions();
         this.config.exampleButton.click(this.exampleClicked);
         this.config.settingsService.subscribe(this.onSettingsChanged);
     }
@@ -17,25 +16,6 @@ class DesktopNotificationController implements INotificationController {
         
     }
 
-    private checkPermissions = (): boolean => {
-        if (typeof Notification === "undefined") {
-            this.updateCurrentPermission("unsupported");
-            return false;
-        }
-        this.updateCurrentPermission(Notification.permission);
-        if (Notification.permission === "granted") {
-            return true;
-        }
-        const promise = Notification.requestPermission();
-        this.updateCurrentPermission(Notification.permission);
-        promise.then(perm => {
-            this.updateCurrentPermission(perm);
-        }, reason => {
-            console.log(reason);
-        });
-        return false;
-    }
-
     private updateCurrentPermission = (status: string) => {
         this.config.permissionElement.text(status);
     }
@@ -45,9 +25,6 @@ class DesktopNotificationController implements INotificationController {
     }
 
     public addNotificationExample = (): void => {
-        if (!this.checkPermissions()) {
-            return;
-        }
         this.addNotification("Example", {
             body: "This is an example of a desktop notification",
             icon: ""
@@ -56,9 +33,6 @@ class DesktopNotificationController implements INotificationController {
 
     public addNotificationPokeStopUsed = (fortUsed: IFortUsedEvent): void => {
         if (!this.config.notificationSettings.pokestopUsed) {
-            return;
-        }
-        if (!this.checkPermissions()) {
             return;
         }
         this.addNotification("Pokestop", {
@@ -75,25 +49,20 @@ class DesktopNotificationController implements INotificationController {
         if (pokemonCatch.IsSnipe && !this.config.notificationSettings.pokemonSnipe) {
             return;
         }
-        if (!this.checkPermissions()) {
-            return;
-        }
         const eventType = pokemonCatch.IsSnipe ? "Snipe" : "Catch";
         const pokemonName = this.config.translationController.translation.pokemonNames[pokemonCatch.Id];
         const roundedPerfection = Math.round(pokemonCatch.Perfection * 100) / 100;
         this.addNotification(eventType, {
             body: `${pokemonName}
 CP: ${pokemonCatch.Cp}
-IV: ${roundedPerfection}`,
+IV: ${roundedPerfection}
+Lvl: ${pokemonCatch.Level}`,
             icon: `images/pokemon/${pokemonCatch.Id}.png`
         });
     }
 
     public addNotificationPokemonEvolved = (pokemonEvolve: IPokemonEvolveEvent): void => {
         if (!this.config.notificationSettings.pokemonEvolved) {
-            return;
-        }
-        if (!this.checkPermissions()) {
             return;
         }
         const pokemonName = this.config.translationController.translation.pokemonNames[pokemonEvolve.Id];
@@ -107,9 +76,6 @@ IV: ${roundedPerfection}`,
         if (!this.config.notificationSettings.pokemonTransfer) {
             return;
         }
-        if (!this.checkPermissions()) {
-            return;
-        }
         const pokemonName = this.config.translationController.translation.pokemonNames[pokemonTransfer.PokemonId];
         this.addNotification("Transfer", {
             body: `${pokemonName}`,
@@ -119,9 +85,6 @@ IV: ${roundedPerfection}`,
 
     public addNotificationItemRecycle = (itemRecycle: IItemRecycleEvent): void => {
         if (!this.config.notificationSettings.itemRecycle) {
-            return;
-        }
-        if (!this.checkPermissions()) {
             return;
         }
         this.addNotification("Recycle", {
@@ -134,9 +97,6 @@ IV: ${roundedPerfection}`,
         if (!this.config.notificationSettings.eggHatched) {
             return;
         }
-        if (!this.checkPermissions()) {
-            return;
-        }
         const pokemonName = this.config.translationController.translation.pokemonNames[eggHatched.PokemonId];
         this.addNotification("Hatch", {
             body: `${pokemonName}`,
@@ -146,9 +106,6 @@ IV: ${roundedPerfection}`,
 
     public addNotificationIncubatorStatus = (incubatorStatus: IIncubatorStatusEvent): void => {
         if (!this.config.notificationSettings.incubatorStatus) {
-            return;
-        }
-        if (!this.checkPermissions()) {
             return;
         }
         const km = Math.round((incubatorStatus.KmToWalk - incubatorStatus.KmRemaining) * 100) / 100;
@@ -163,7 +120,30 @@ IV: ${roundedPerfection}`,
         
     }
     private addNotification = (title: string, options: NotificationOptions) => {
-        const notification = new Notification(title, options);
+		if (typeof Notification === "undefined") {
+            this.updateCurrentPermission("unsupported");
+            return;
+        }
+		
+		this.updateCurrentPermission(Notification.permission);
+		
+		if (Notification.permission === "granted") {
+			const notification = new Notification(title, options);
+			return;
+        }
+		
+		if (Notification.permission !== 'denied') {
+			const promise = Notification.requestPermission();
+			promise.then(permission => {
+				// If the user accepts, let's create a notification
+				if (permission === "granted") {
+					var notification = new Notification(title, options);
+				}
+				this.updateCurrentPermission(permission);
+			}, reason => {
+				console.log(reason);
+			});
+		}
     }
 
     private onSettingsChanged = (settings: ISettings, previousSettings: ISettings): void => {
