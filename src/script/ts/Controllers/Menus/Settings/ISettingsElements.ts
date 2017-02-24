@@ -12,7 +12,7 @@ interface ISettingsElements {
     notificationsJournal: INotificationSettingsElements;
     notificationsDesktop: INotificationSettingsElements;
     notificationsToast: INotificationSettingsElements;
-	notificationsAudio: INotificationSettingsElements;
+    notificationsAudio: INotificationSettingsElements;
 
     notificationsJournalClearingAnimation: JQuery;
 }

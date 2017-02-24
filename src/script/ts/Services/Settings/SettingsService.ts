@@ -86,7 +86,7 @@
             notificationsJournal: notificationsJournal,
             notificationsDesktop: notificationsDesktop,
             notificationsToast: notificationsToast,
-			notificationsAudio: notificationsAudio,
+            notificationsAudio: notificationsAudio,
             notificationsJournalClearingAnimation: this.coalesceMap(allSettings, s => s.notificationsJournalClearingAnimation)
         }
     }
@@ -142,7 +142,7 @@
         equal = equal && this.notificationSettingsEqual(settings.notificationsJournal, to.notificationsJournal);
         equal = equal && this.notificationSettingsEqual(settings.notificationsDesktop, to.notificationsDesktop);
         equal = equal && this.notificationSettingsEqual(settings.notificationsToast, to.notificationsToast);
-		equal = equal && this.notificationSettingsEqual(settings.notificationsAudio, to.notificationsAudio);
+        equal = equal && this.notificationSettingsEqual(settings.notificationsAudio, to.notificationsAudio);
 
         equal = equal && settings.notificationsJournalClearingAnimation === to.notificationsJournalClearingAnimation;
 
