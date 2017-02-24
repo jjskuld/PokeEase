@@ -1,5 +1,7 @@
 ![logo](http://i.imgur.com/rKuTwCM.jpg)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/fcq8o3q7oj37imvw?svg=true)](https://ci.appveyor.com/project/jjskuld/pokeease)
+
 # PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
 
