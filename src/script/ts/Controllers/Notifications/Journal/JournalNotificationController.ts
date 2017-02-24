@@ -98,7 +98,7 @@ Gems            <span class="xp"> ${fortUsed.Gems} </span><br/>
                         </div>
                         <div class="info">
                             ${pokemonName}
-                            <div class="stats">CP ${pokemonCatch.Cp} | IV ${roundedPerfection}%</div>
+                            <div class="stats">CP ${pokemonCatch.Cp} | Lvl ${pokemonCatch.Level} | IV ${roundedPerfection}%</div>
                         </div>`;
         let itemsHtml = "";
         _.each(itemsUsedForCapture, i => itemsHtml += `<img src="images/items/${i}.png">`);
