@@ -1,6 +1,6 @@
 ![logo](http://i.imgur.com/rKuTwCM.jpg)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/fcq8o3q7oj37imvw?svg=true)](https://ci.appveyor.com/project/jjskuld/pokeease)
+[![Build status](https://ci.appveyor.com/api/projects/status/fcq8o3q7oj37imvw/branch/master?svg=true)](https://ci.appveyor.com/project/jjskuld/pokeease/branch/master)
 
 # PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
