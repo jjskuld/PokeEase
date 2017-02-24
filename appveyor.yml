@@ -69,7 +69,6 @@ environment:
 # scripts that run after cloning repository
 install:
 - git submodule update --init --recursive
-- npm install
 
 #---------------------------------#
 #       build configuration       #
@@ -106,6 +105,7 @@ after_build:
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
+  - npm install
   
 #---------------------------------#
 #       tests configuration       #
