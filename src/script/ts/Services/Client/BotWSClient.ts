@@ -234,6 +234,7 @@ class BotWSClient implements IBotClient, IRequestSender {
                 val => {
                     const pokemon = val.Base as IPokemonListEntry;
                     pokemon.Perfection = val.IvPerfection;
+					pokemon.FamilyCandies = val.FamilyCandies;
                     pokemonList.Pokemons.push(pokemon);
                 });
 
