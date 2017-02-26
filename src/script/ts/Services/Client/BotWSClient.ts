@@ -220,6 +220,7 @@ class BotWSClient implements IBotClient, IRequestSender {
                     const pokemon = val.Item1 as IPokemonListEntry;
                     pokemon.Perfection = val.Item2;
                     pokemon.FamilyCandies = val.Item3;
+                    pokemon.Level = val.Item4;
                     pokemonList.Pokemons.push(pokemon);
                 });
             _.each(this.config.eventHandlers, eh => eh.onPokemonList(pokemonList));
@@ -234,7 +235,8 @@ class BotWSClient implements IBotClient, IRequestSender {
                 val => {
                     const pokemon = val.Base as IPokemonListEntry;
                     pokemon.Perfection = val.IvPerfection;
-					pokemon.FamilyCandies = val.FamilyCandies;
+                    pokemon.FamilyCandies = val.FamilyCandies;
+                    pokemon.Level = val.Level;
                     pokemonList.Pokemons.push(pokemon);
                 });
 
@@ -311,10 +313,10 @@ class BotWSClient implements IBotClient, IRequestSender {
             playerStats.Timestamp = timestamp;
             _.each(this.config.eventHandlers, eh => eh.onPlayerStats(playerStats));
         }
-        else if(_.includes(type, ".UpgradePokemonEvent")){
+        else if (_.includes(type, ".UpgradePokemonEvent")) {
             let upgradeEV = message as IUpgradeEvent
-             _.each(this.config.eventHandlers, eh => eh.onPokemonUpgraded(upgradeEV));
-             _.each(this.config.eventHandlers, eh => eh.onPokemonUpgraded(upgradeEV));
+            _.each(this.config.eventHandlers, eh => eh.onPokemonUpgraded(upgradeEV));
+            _.each(this.config.eventHandlers, eh => eh.onPokemonUpgraded(upgradeEV));
 
         }
         else if (_.includes(type, ".HumanWalkSnipeEvent")) {
@@ -326,29 +328,29 @@ class BotWSClient implements IBotClient, IRequestSender {
                 }
                 _.each(this.config.eventHandlers, eh => eh.onHumanSnipeList(snipesList));
             }
-            switch(snipeEv.Type) {
-               case HumanWalkEventTypes.StartWalking:
+            switch (snipeEv.Type) {
+                case HumanWalkEventTypes.StartWalking:
                     const snipeStartEV: IHumanWalkSnipeStartEvent = {
-                         Latitude :snipeEv.Latitude,
-                         Longitude : snipeEv.Longitude,
-                         PokemonId : snipeEv.PokemonId ,
-                         Timestamp :snipeEv.Timestamp ,
-                         Distance: snipeEv.Distance,
-                         Estimated: snipeEv.Estimate,
-                         Rarity : snipeEv.Rarity           
-                         }
-                         console.log(snipeStartEV)
+                        Latitude: snipeEv.Latitude,
+                        Longitude: snipeEv.Longitude,
+                        PokemonId: snipeEv.PokemonId,
+                        Timestamp: snipeEv.Timestamp,
+                        Distance: snipeEv.Distance,
+                        Estimated: snipeEv.Estimate,
+                        Rarity: snipeEv.Rarity
+                    }
+                    console.log(snipeStartEV)
                     _.each(this.config.eventHandlers, eh => eh.onHumanSnipeStart(snipeStartEV));
-               break;
+                    break;
 
-               case HumanWalkEventTypes.DestinationReached:
-                    let reachedEV :IHumanWalkSnipeReachedEvent = {
-                        UniqueId : snipeEv.UniqueId,
-                        PauseDuration : snipeEv.PauseDuration ,
+                case HumanWalkEventTypes.DestinationReached:
+                    let reachedEV: IHumanWalkSnipeReachedEvent = {
+                        UniqueId: snipeEv.UniqueId,
+                        PauseDuration: snipeEv.PauseDuration,
                         Timestamp: snipeEv.Timestamp
                     };
-                  _.each(this.config.eventHandlers, eh => eh.onHumanSnipeReachedDestination(reachedEV))
-               break;
+                    _.each(this.config.eventHandlers, eh => eh.onHumanSnipeReachedDestination(reachedEV))
+                    break;
             }
         }
         //#endregion
@@ -408,10 +410,10 @@ class BotWSClient implements IBotClient, IRequestSender {
         }
     };
     public sendRecycleRequest = (itemId: number, count: number): void => {
-     const request: IRecycleRequest = {
-             Command: "DropItem",
-             ItemId: itemId,
-             Count: count
+        const request: IRecycleRequest = {
+            Command: "DropItem",
+            ItemId: itemId,
+            Count: count
         };
         _.each(this.config.eventHandlers, eh => eh.onSendRecycleRequest(request));
         this.sendRequest(request);
@@ -431,7 +433,7 @@ class BotWSClient implements IBotClient, IRequestSender {
 
     public sendGetPokemonSettingsRequest = (): void => {
         const request: IRequest = {
-             Command: "GetPokemonSettings"
+            Command: "GetPokemonSettings"
         };
         _.each(this.config.eventHandlers, eh => eh.onSendGetPokemonSettingsRequest(request));
         this.sendRequest(request);
@@ -439,9 +441,9 @@ class BotWSClient implements IBotClient, IRequestSender {
 
     public sendTransferPokemonRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "TransferPokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId 
+            Command: "TransferPokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendTransferPokemonRequest(request));
         this.sendRequest(request);
@@ -449,20 +451,20 @@ class BotWSClient implements IBotClient, IRequestSender {
 
     public sendEvolvePokemonRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "EvolvePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId
+            Command: "EvolvePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendEvolvePokemonRequest(request));
         this.sendRequest(request);
     };
-    
-    public sendUpgradePokemonRequest = (pokemonId: string, max:boolean): void => {
+
+    public sendUpgradePokemonRequest = (pokemonId: string, max: boolean): void => {
         const request: IUpgradeRequest = {
-             Command: "UpgradePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId,
-             Max:max
+            Command: "UpgradePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId,
+            Max: max
         };
         _.each(this.config.eventHandlers, eh => eh.onSendUpgradePokemonRequest(request));
         this.sendRequest(request);
@@ -484,64 +486,64 @@ class BotWSClient implements IBotClient, IRequestSender {
     }
     public sendHumanSnipePokemonRemoveRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "RemovePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId,
-             Id:pokemonId
+            Command: "RemovePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId,
+            Id: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendHumanSnipePokemonRemoveRequest(request));
         this.sendRequest(request);
     }
-	
+
     public sendHumanSnipePokemonSnipeRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "SnipePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId ,
-             Id:pokemonId
+            Command: "SnipePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId,
+            Id: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendHumanSnipePokemonRequest(request));
         this.sendRequest(request);
     }
-    public sendHumanSnipPokemonListUpdateRequest = ():void => {
+    public sendHumanSnipPokemonListUpdateRequest = (): void => {
         const necroRequest: IRequest = { Command: "PokemonSnipeList" };
         _.each(this.config.eventHandlers, eh => eh.onSendHumanSnipPokemonListUpdateRequest(necroRequest));
-       
+
         if (this.currentBotFamily === BotFamily.Undetermined || this.currentBotFamily === BotFamily.Necro) {
             this.sendRequest(necroRequest);
         }
     }
-    public sendHumanSnipPokemonRemoveRequest =(pokemonId: string): void => {
+    public sendHumanSnipPokemonRemoveRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "RemovePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId,
-             Id:pokemonId
+            Command: "RemovePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId,
+            Id: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendHumanSnipePokemonRemoveRequest(request));
         this.sendRequest(request);
     }
-     public sendHumanSnipPokemonSnipeRequest =(pokemonId: string): void => {
+    public sendHumanSnipPokemonSnipeRequest = (pokemonId: string): void => {
         const request: IRequest = {
-             Command: "SnipePokemon",
-             Data: pokemonId,
-             PokemonId: pokemonId ,
-             Id:pokemonId
+            Command: "SnipePokemon",
+            Data: pokemonId,
+            PokemonId: pokemonId,
+            Id: pokemonId
         };
         _.each(this.config.eventHandlers, eh => eh.onSendHumanSnipePokemonRequest(request));
-            this.sendRequest(request);
+        this.sendRequest(request);
     };
-     public sendMoveToRequest = (lat: number, lng: number, teleport: boolean, fortId?:string): void => {
-         const request: IMoveToLocationRequest = {
-             Command: "SetMoveToTarget",
-             Latitude: lat,
-             Longitude: lng,
-             UseTeleport: teleport,
-             FortId: fortId
-         };
+    public sendMoveToRequest = (lat: number, lng: number, teleport: boolean, fortId?: string): void => {
+        const request: IMoveToLocationRequest = {
+            Command: "SetMoveToTarget",
+            Latitude: lat,
+            Longitude: lng,
+            UseTeleport: teleport,
+            FortId: fortId
+        };
         _.each(this.config.eventHandlers, eh => eh.onMoveToTargetRequest(request));
-         this.sendRequest(request);
-     }
+        this.sendRequest(request);
+    }
     private parseItemString = (itemStr: string): IFortItem[] => {
         const itemParseRegex = /(\d+) x (.+?)(?:,|$)/g;
         const itemsList: IFortItem[] = [];
