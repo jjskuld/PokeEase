@@ -12,7 +12,7 @@ interface ISettings {
     notificationsJournal: INotificationSettings;
     notificationsDesktop: INotificationSettings;
     notificationsToast: INotificationSettings;
-	notificationsAudio: INotificationSettings;
+    notificationsAudio: INotificationSettings;
 
     notificationsJournalClearingAnimation: boolean;
 }
