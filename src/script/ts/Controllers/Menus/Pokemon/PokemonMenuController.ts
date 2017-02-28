@@ -104,15 +104,29 @@ class PokemonMenuController implements IPokemonMenuController {
         }
         this.config.pokemonLoadingSpinner.fadeOut(150);
     }
-    private displayPokemonInfo= (pokemon : IPokemonListEntry) :void =>{
-        const info : IPokemonInfo = pokemon;
-        info.Name =  this.config.translationController.translation.pokemonNames[pokemon.PokemonId];
-        /*
+    private displayPokemonInfo = (pokemon: IPokemonListEntry): void => {
+        const info: IPokemonInfo = pokemon;
+        info.Name = this.config.translationController.translation.pokemonNames[pokemon.PokemonId];
+
+        info.PokemonTypes = [];
+        info.Move1Name = this.config.translationController.translation.moveNames[pokemon.Move1] || "No translation for " + info.Move1;
+        info.Move2Name = this.config.translationController.translation.moveNames[pokemon.Move2] || "No translation for " + info.Move2;
+        info.CreationDateTime = new Date(+info.CreationTimeMs).toLocaleString(navigator.language, { hour12: true }).toUpperCase()
+        const pokemonData = StaticData.pokemonData[pokemon.PokemonId];
+        for (let i = 0; i < pokemonData.elements.length; i++) {
+            const elementStr = PokeElement[pokemonData.elements[i]].toLowerCase();
+            info.PokemonTypes.push(elementStr)
+        }
+
+        this.config.pokemonMenuElement.closest("#content-wrap").addClass("blurred");
+        const html = $(app.templates.Pokemon.PokemonInfo(pokemon));
+        const evolveButton = html.find('#evolve-pokemon-button')
         if (StaticData.pokemonData[pokemon.PokemonId].evolvesInto.length === 0) {
             evolveButton.hide();
         } else {
             const candiesRequired = StaticData.pokemonData[pokemon.PokemonId].candyToEvolve;
-            evolveButton.find(".button-disabled-reason").text(`${candiesRequired} candies required`);
+            const neededCandy = candiesRequired - info.FamilyCandies
+            evolveButton.find(".button-disabled-reason").text(`${neededCandy} of ${candiesRequired} candies required`);
             if (typeof pokemon.FamilyCandies !== "undefined" && pokemon.FamilyCandies < candiesRequired) {
                 evolveButton.addClass("disabled");
             } else {
@@ -120,21 +134,7 @@ class PokemonMenuController implements IPokemonMenuController {
             }
             evolveButton.show();
         }
-        */
-        
-        
-        info.PokemonTypes = [];        
-        info.Move1Name = this.config.translationController.translation.moveNames[pokemon.Move1];
-        info.Move2Name  = this.config.translationController.translation.moveNames[pokemon.Move2];
-        const pokemonData = StaticData.pokemonData[pokemon.PokemonId];
-        for (let i = 0; i < pokemonData.elements.length; i++) {
-            const elementStr = PokeElement[pokemonData.elements[i]].toLowerCase();
-            info.PokemonTypes.push(elementStr)
-        }
-        
-        this.config.pokemonMenuElement.closest("#content-wrap").addClass("blurred");
-        const html = $(app.templates.Pokemon.PokemonInfo(pokemon));
-        html.bind('click', function() { ;return false;})
+        html.bind('click', function () { ; return false; })
         html.find('#confirm-transfer').click(this.transferPokemon)
         html.find('#confirm-evolve').click(this.evolvePokemon)
         html.find('#confirm-upgrade').click(this.upgradePokemon)
@@ -150,38 +150,39 @@ class PokemonMenuController implements IPokemonMenuController {
         const pokemonUniqueIdStr = pokemonBox.attr("data-pokemon-unique-id");
         const pokemon = _.find(this.pokemonList.Pokemons, p => p.Id === pokemonUniqueIdStr);
         this.currentPokemon = pokemon;
-        const info : IPokemonInfo = pokemon;
+        const info: IPokemonInfo = pokemon;
         this.displayPokemonInfo(info);
-        
     }
 
-    private close = (ev: JQueryEventObject)  => {
+    private close = (ev: JQueryEventObject) => {
         this.config.pokemonMenuElement.closest("#content-wrap").removeClass("blurred");
         this.config.pokemonDetailsElement.fadeOut()
     }
+
     private transferPokemon = (ev: JQueryEventObject) => {
         const pokemonUniqueId = this.currentPokemon.Id;
         this.config.requestSender.sendTransferPokemonRequest(pokemonUniqueId);
         this.config.pokemonDetailsElement.fadeOut()
         this.close(ev)
     }
-    public updatePokemonAfterUpgraded = (pkm :IUpgradeEvent) => {
-        if(this.currentPokemon.Id == pkm.Id) {
+
+    public updatePokemonAfterUpgraded = (pkm: IUpgradeEvent) => {
+        if (this.currentPokemon.Id == pkm.Id) {
             this.currentPokemon.Cp = pkm.Cp;
             this.currentPokemon.FamilyCandies = pkm.FamilyCandies;
             this.displayPokemonInfo(this.currentPokemon);
-            
         }
 
-        this.pokemonList.Pokemons.forEach((item, index, arr)=> {
-            if(item.Id == pkm.Id) {
+        this.pokemonList.Pokemons.forEach((item, index, arr) => {
+            if (item.Id == pkm.Id) {
                 item.Cp = pkm.Cp;
-                item.FamilyCandies = pkm.FamilyCandies;        
-            }            
+                item.FamilyCandies = pkm.FamilyCandies;
+            }
         });
 
-        this.updatePokemonListInner();     
+        this.updatePokemonListInner();
     }
+
     private evolvePokemon = (ev: JQueryEventObject) => {
         const pokemonUniqueId = this.currentPokemon.Id;
         this.config.requestSender.sendEvolvePokemonRequest(pokemonUniqueId);
@@ -198,5 +199,4 @@ class PokemonMenuController implements IPokemonMenuController {
         const pokemonUniqueId = this.currentPokemon.Id;
         this.config.requestSender.sendUpgradePokemonRequest(pokemonUniqueId, true);
     }
-
 }
