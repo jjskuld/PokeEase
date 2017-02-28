@@ -1385,6 +1385,9 @@ $event-incubator-status-color: #e9e1b5;
     .poke-catch:before {
         content: "Captured on";
     }
+    .poke-level:before {
+        content: "Level";
+    }
     .parameter:before {
         content: "Parameter";
     }

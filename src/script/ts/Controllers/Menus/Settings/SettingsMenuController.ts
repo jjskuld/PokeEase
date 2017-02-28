@@ -52,7 +52,7 @@ class SettingsMenuController implements ISettingsMenuController {
                 pokemonTransfer: this.config.settingsMenuElement.find("[name='settings-notifications-toast-pokemon-transfer']")
             },
 
-			notificationsAudio: {
+            notificationsAudio: {
                 pokestopUsed: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokestop-used']"),
                 pokemonCapture: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-capture']"),
                 pokemonSnipe: this.config.settingsMenuElement.find("[name='settings-notifications-audio-pokemon-snipe']"),
@@ -108,7 +108,7 @@ class SettingsMenuController implements ISettingsMenuController {
         this.setNotificationSettings(this.settingsElements.notificationsJournal, settings.notificationsJournal);
         this.setNotificationSettings(this.settingsElements.notificationsDesktop, settings.notificationsDesktop);
         this.setNotificationSettings(this.settingsElements.notificationsToast, settings.notificationsToast);
-		this.setNotificationSettings(this.settingsElements.notificationsAudio, settings.notificationsAudio);
+        this.setNotificationSettings(this.settingsElements.notificationsAudio, settings.notificationsAudio);
         this.setToggleSetting(this.settingsElements.notificationsJournalClearingAnimation, settings.notificationsJournalClearingAnimation);
     }
 
@@ -146,7 +146,7 @@ class SettingsMenuController implements ISettingsMenuController {
             notificationsJournal: this.getNotificationSettings(this.settingsElements.notificationsJournal),
             notificationsDesktop: this.getNotificationSettings(this.settingsElements.notificationsDesktop),
             notificationsToast: this.getNotificationSettings(this.settingsElements.notificationsToast),
-			notificationsAudio: this.getNotificationSettings(this.settingsElements.notificationsAudio),
+            notificationsAudio: this.getNotificationSettings(this.settingsElements.notificationsAudio),
             notificationsJournalClearingAnimation: this.settingsElements.notificationsJournalClearingAnimation.hasClass("active")
         };
         return settings;

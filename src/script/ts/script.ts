@@ -38,8 +38,8 @@ $(() => {
         notificationSettings: settings.notificationsToast,
         settingsService: settingsService
     });
-	
-	const audioNotificationController = new AudioNotificationController({
+
+    const audioNotificationController = new AudioNotificationController({
         container: $("#hiddenAudio")[0],
         exampleButton: $("#show-notification-audio-example-button"),
         translationController: translationController,
@@ -118,7 +118,7 @@ $(() => {
             journalNotificationController,
             desktopNotificationController,
             toastNotificationController,
-			audioNotificationController
+            audioNotificationController
         ],
         mainMenuController: mainMenuController,
         pokemonMenuController: pokemonMenuController,
