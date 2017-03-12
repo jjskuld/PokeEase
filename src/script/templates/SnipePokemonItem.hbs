@@ -1,0 +1,13 @@
+﻿<div class="pokemon {{ClassName}}" data-pokemon-unique-id="{{UniqueId}}">
+    <a class="delete " data-uniqueId="{{UniqueId}}" title="Remove this Pokemon"></a>
+    <h1 class="name">{{PokemonName}}</h1>
+    <div class="image-container">
+        <img src="images/pokemon/{{Id}}.png" alt="{{PokemonName}}" title="{{PokemonName}}" />
+    </div>
+    {{#if IsCatching}}
+    <div id="fountainTextG"><div id="fountainTextG_1" class="fountainTextG">W</div><div id="fountainTextG_2" class="fountainTextG">a</div><div id="fountainTextG_3" class="fountainTextG">l</div><div id="fountainTextG_4" class="fountainTextG">k</div><div id="fountainTextG_5" class="fountainTextG">i</div><div id="fountainTextG_6" class="fountainTextG">n</div><div id="fountainTextG_7" class="fountainTextG">g</div></div> 
+    {{/if}}
+    <h3 class="distance">{{round Distance 2}}m</h3>
+    <h3 class="timer">{{round Estimated 1}}/{{Expired}}</h3>
+    <a class="snipe-him" data-uniqueId="{{UniqueId}}" title="Snipe this Pokemon"></a>
+</div>

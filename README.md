@@ -1,7 +1,16 @@
 ![logo](http://i.imgur.com/rKuTwCM.jpg)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/fcq8o3q7oj37imvw/branch/master?svg=true)](https://ci.appveyor.com/project/jjskuld/pokeease/branch/master)
+
 # PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
+
+New feature is adding day by date
+
+FOR DEV
+
+NPM INSTALL
+GRUNT BUILD
 
 <a href="https://discord.gg/Q9T2USY">
   <img src="https://discordapp.com/api/guilds/213010121356214272/widget.png?style=banner2"/>

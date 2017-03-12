@@ -1,1 +1,1 @@
-start chrome --app="%CD%\src\index.html"
+start chrome --app="%CD%\public\index.html"

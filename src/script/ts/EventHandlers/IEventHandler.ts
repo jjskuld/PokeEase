@@ -19,14 +19,17 @@ interface IEventHandler {
     onIncubatorStatus: (incubatorStatus: IIncubatorStatusEvent) => void;
     onItemRecycle: (itemRecycle: IItemRecycleEvent) => void;
     onPokemonTransfer: (pokemonTransfer: IPokemonTransferEvent) => void;
-
+    onSendRecycleRequest :(request: IRecycleRequest) => void;
     onGetConfig: (configEvent: IConfigEvent) => void;
     onPokemonList: (pokemonList: IPokemonListEvent) => void;
     onEggList: (eggList: IEggListEvent) => void;
     onInventoryList: (inventoryList: IInventoryListEvent) => void;
     onPlayerStats: (playerStats: IPlayerStatsEvent) => void;
     onHumanSnipeList: (pokemonList: IHumanWalkSnipeListEvent) => void;
-
+    onHumanSnipeStart : (snipeData: IHumanWalkSnipeStartEvent) => void;
+    onHumanSnipeReachedDestination :(ev: IHumanWalkSnipeReachedEvent) => void;
+    onPokemonUpgraded : (ev:IUpgradeEvent) => void;
+    onSendUpgradePokemonRequest: (request: IRequest) => void;
     onSendGetConfigRequest: (request: IRequest) => void;
     onSendPokemonListRequest: (request: IRequest) => void;
     onSendEggsListRequest: (request: IRequest) => void;
@@ -38,6 +41,6 @@ interface IEventHandler {
     onSendHumanSnipePokemonRequest: (request: IRequest) => void;
     onSendHumanSnipPokemonListUpdateRequest: (request:IRequest) => void;
     onSendHumanSnipePokemonRemoveRequest: (request: IRequest) => void;
-
+    onMoveToTargetRequest : (request: IMoveToLocationRequest) => void;
     onUnknownEvent?: (message: any) => void;
 }

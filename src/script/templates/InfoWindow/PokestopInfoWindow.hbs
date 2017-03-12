@@ -1,0 +1,21 @@
+﻿<div class="iw-wrap iw-pokestop{{getPokestopStatusCss Status}}">
+        <div class="iw-status">{{getPokestopStatus Status}}</div>
+        <img src="images/gui/pokestop.png" alt="Pokestop icon" class="iw-icon iw-icon-{{getPokestopStatusIconCss Status}}-pokestop">
+        <div class="iw-header iw-name">
+            <span class="iw-detail-value">{{Name}}</span>
+            <span class="iw-detail-header">Pokestop</span>
+        </div>
+        <div class="iw-content">
+            <div class="iw-detail iw-latitude">
+                <span class="iw-detail-header">Latitude</span>
+                <span class="iw-detail-value">{{Latitude}}</span>
+            </div>
+            <div class="iw-detail iw-longitude">
+                <span class="iw-detail-header">Longitude</span>
+                <span class="iw-detail-value">{{Longitude}}</span>
+            </div>
+            <a id="fort_{{Id}}" title="Click to order bot move to {{Name}}" class="iw-pokestop-move-to" rel="{{Id}}" data-fortId="{{Id}}" data-latitude="{{Latitude}}" data-longitude="{{Longitude}}">
+                <img src="images/move.svg" width="30px" height="30px">
+            </a>
+        </div>
+    </div>

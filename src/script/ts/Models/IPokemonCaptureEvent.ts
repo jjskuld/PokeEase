@@ -14,7 +14,7 @@ interface IPokemonCaptureEvent extends IUpdatePositionEvent {
     Perfection: number;
     PokemonId: number;
     Status: PokemonCatchStatus;
-
+    Rarity? : string;// "VeryCommon" | "Common" | "Popular" | "Rare" |"VeryRare" | "Special" | "Epic" | "Legendary";
     IsSnipe?: boolean;
     LMarker?: L.Marker;
 }

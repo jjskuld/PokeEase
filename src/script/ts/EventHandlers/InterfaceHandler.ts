@@ -1,4 +1,6 @@
-﻿class InterfaceHandler implements IEventHandler {
+﻿/// <reference path="../../index.d.ts" />
+
+class InterfaceHandler implements IEventHandler {
     private config: IInterfaceHandlerConfig;
     private currentlySniping: boolean;
     private pokeStops: IPokeStopEvent[];
@@ -24,7 +26,14 @@
         this.currentItemCount = 0;
         this.latestPlayerStats = null;
     }
+    public onPokemonUpgraded(pkm: IUpgradeEvent) :void {
+        this.config.pokemonMenuController.updatePokemonAfterUpgraded(pkm);
+        _.each(this.config.notificationControllers, ctrl => ctrl.addPokemonUpgraded(pkm));
+            
+    }
+    public onSendUpgradePokemonRequest (request: IRequest): void  {
 
+    }
     public onLog(logEvent: ILogEvent): void {
         this.config.consoleController.log(logEvent);
     }
@@ -89,7 +98,11 @@
         this.config.mainMenuController.setItemCount(this.currentItemCount);
         this.config.fortCacheService.setName(fortUsed.Id, fortUsed.Name);
         const pokeStop = _.find(this.pokeStops, ps => ps.Id === fortUsed.Id);
-        pokeStop.Name = fortUsed.Name;
+        
+        if(pokeStop){
+            pokeStop.Name = fortUsed.Name;
+        }
+
         this.config.map.usePokeStop(fortUsed);
         this.currentExp += fortUsed.Exp;
         _.each(this.config.notificationControllers, ctrl => ctrl.addNotificationPokeStopUsed(fortUsed));
@@ -246,7 +259,18 @@
         this.config.mainMenuController.setSnipePokemonCount(currentSnipePokemonCount);
         this.config.mainMenuController.showSnipesMenu();
     }
+    public onHumanSnipeReachedDestination(ev: IHumanWalkSnipeReachedEvent) :void {
+        this.config.map.onHumanSnipeReachedDestination(ev);
+        _.each(this.config.notificationControllers, ctrl => ctrl.addHumanSnipeReachedDestination(ev));
+        
+    }
+    public onHumanSnipeStart(snipePokemon :IHumanWalkSnipeStartEvent) : void {
+        snipePokemon.PokemonName = this.config.translationController.translation.pokemonNames[snipePokemon.PokemonId]
 
+        this.config.map.onSnipePokemonStart(  snipePokemon);
+        _.each(this.config.notificationControllers, ctrl => ctrl.addHumanWalkSnipeStart(snipePokemon));
+        
+    }
     public onSendInventoryListRequest(request: IRequest): void {
         this.config.inventoryMenuController.inventoryListRequested(request);
     }
@@ -275,7 +299,11 @@
     public onSendEvolvePokemonRequest(request: IRequest): void {
         
     }
+    public onSendRecycleRequest = (request: IRecycleRequest) : void => {
+    }
+    public onMoveToTargetRequest = (request: IMoveToLocationRequest): void => {
 
+    }
     public onSettingsChanged = (settings: ISettings, previousSettings: ISettings):void => {
         this.config.map.config.followPlayer = settings.mapFolllowPlayer;
     }
