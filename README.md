@@ -1,5 +1,5 @@
 <div align="center">
-  ![logo](http://i.imgur.com/rKuTwCM.jpg)
+  <img src="http://i.imgur.com/rKuTwCM.jpg">
   <a href="https://david-dm.org/necrobot-private/PokeEase" title="dependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/status.svg"/></a>
   <a href="https://david-dm.org/necrobot-private/PokeEase?type=dev" title="devDependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/dev-status.svg"/></a>
   
