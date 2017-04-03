@@ -1,16 +1,19 @@
-![logo](http://i.imgur.com/rKuTwCM.jpg)
-
-[![Build status](https://ci.appveyor.com/api/projects/status/fcq8o3q7oj37imvw/branch/master?svg=true)](https://ci.appveyor.com/project/jjskuld/pokeease/branch/master)
-
+<div align="center">
+  <img src="http://i.imgur.com/rKuTwCM.jpg">
+  <a href="https://david-dm.org/necrobot-private/PokeEase" title="dependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/status.svg"/></a>
+  <a href="https://david-dm.org/necrobot-private/PokeEase?type=dev" title="devDependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/dev-status.svg"/></a>
+  
 # PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
 
-New feature is adding day by date
+New features are getting added every day.
 
-FOR DEV
+### FOR DEVELOPERS
 
-NPM INSTALL
-GRUNT BUILD
+```
+npm install
+grunt build
+```
 
 <a href="https://discord.gg/Q9T2USY">
   <img src="https://discordapp.com/api/guilds/213010121356214272/widget.png?style=banner2"/>
