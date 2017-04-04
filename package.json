@@ -63,6 +63,7 @@
     "typescript": "^1.8.10"
   },
   "scripts": {
+    "test": "grunt build",
     "postinstall": "bower cache clean && bower install && grunt build"
   }
 }

@@ -3,7 +3,7 @@
   <a href="https://david-dm.org/necrobot-private/PokeEase" title="dependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/status.svg"/></a>
   <a href="https://david-dm.org/necrobot-private/PokeEase?type=dev" title="devDependencies status"><img src="https://david-dm.org/necrobot-private/PokeEase/dev-status.svg"/></a>
   
-# PokeEase
+## PokeEase
 The Perfect GUI for Pokemon GO botting -- Work In Progress
 
 New features are getting added every day.
