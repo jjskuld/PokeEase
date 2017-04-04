@@ -2,7 +2,7 @@
 <html>
 <head>
     <title> NecroEase </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, target-densitydpi=high-dpi">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <!-- build:css styles/site.min.css -->
     <link rel="stylesheet" type="text/css" href="style/animation.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -293,7 +293,6 @@
             <span class="iw-detail-header">Pokestop</span>
         </div>
         <div class="iw-content">
-
             <div class="iw-detail iw-gym-level" style="display: none">
                 <span class="iw-detail-header">Level</span>
                 <span class="iw-detail-value">4</span>
@@ -302,22 +301,19 @@
                 <span class="iw-detail-header">XP</span>
                 <span class="iw-detail-value">8994 / 10000</span>
             </div>
-
             <hr class="iw-gym-hr-general" style="display: none"/>
-
             <div class="iw-detail iw-gym-defender" style="display: none">
                 <span class="iw-detail-header">Defender</span>
                 <span class="iw-detail-value">
-                        <img alt="Defender pokemon" class="iw-gym-defender-icon" />
-                        <span class="iw-gym-defender-name"></span>
-                    </span>
+                    <img alt="Defender pokemon" class="iw-gym-defender-icon" />
+                    <span class="iw-gym-defender-name"></span>
+                </span>
             </div>
             <div class="iw-detail iw-gym-defender-cp" style="display: none">
                 <span class="iw-detail-header">CP</span>
                 <span class="iw-detail-value">1234</span>
             </div>
             <hr class="iw-gym-hr-defender" style="display: none"/>
-
             <div class="iw-detail iw-latitude">
                 <span class="iw-detail-header">Latitude</span>
                 <span class="iw-detail-value"></span>
@@ -335,59 +331,45 @@
 </div>
 <div id="map" style="width: 100%; height: 100%"></div>
 <div id="wrap">
-<div class="open-menu">
-    Menu
-    <i class="fa fa-angle-right fa-lg"></i>
-</div>
+<div class="open-menu">Menu<i class="fa fa-angle-right fa-lg"></i></div>
 <div id="menu" class="menu">
     <div class="container center">
-        <div>
-            <div class="close-button">
-                <i class="fa fa-angle-left fa-lg"></i>
-            </div>
+    <div>
+        <div class="close-button">
+            <i class="fa fa-angle-left fa-lg"></i>
+        </div>
             <div class="item" id="pokemons">
-                <div class="counter">
-                    <span class="current">0</span>/<span class="total">250</span>
-                </div>
-            </div>
-            <!-- <div class="item" id="pokedex">
-                <div class="counter">
-                    <span class="current">0</span>/<span class="total">151</span>
-                </div>
-            </div> -->
-            <div class="item" id="items">
-                <div class="counter">
-                    <span class="current">0</span>/<span class="total">350</span>
-                </div>
-            </div>
-            <div class="item" id="eggs">
-                <div class="counter">
-                    <span class="current">0</span>/<span class="total">9</span>
-                </div>
-            </div>
-            <div class="item" id="snipes" title="Snipable Pokémon">
-                <div class="counter">
-                    <span class="current">0</span>
-                </div>
-            </div>
-            <div class="item" id="settings">
-            </div>
-            <div class="item" id="bot-config">
-            </div>
-
-            <a href="https://github.com/GediminasMasaitis/PokeEase/wiki" target="_blank">
-                <div class="help">
-                    <i class="fa fa-info"></i>
-                </div>
-            </a>
+            <div class="counter">
+            <span class="current">0</span>/<span class="total">250</span>
         </div>
     </div>
+    <div class="item" id="items">
+        <div class="counter">
+            <span class="current">0</span>/<span class="total">350</span>
+        </div>
+    </div>
+    <div class="item" id="eggs">
+        <div class="counter">
+            <span class="current">0</span>/<span class="total">9</span>
+        </div>
+    </div>
+    <div class="item" id="snipes" title="Snipable Pokémon">
+        <div class="counter">
+            <span class="current">0</span>
+        </div>
+    </div>
+    <div class="item" id="settings"></div>
+    <div class="item" id="bot-config"></div>
+	<a href="https://github.com/GediminasMasaitis/PokeEase/wiki" target="_blank">
+    <div class="help">
+        <i class="fa fa-info"></i>
+    </div>
+    </a>
+    </div>
+    </div>
 </div>
-
 <div class="open-journal">
-    <i class="fa fa-angle-left fa-lg"></i>
-    Journal
-    <span id="journal-counter">0</span>
+    <i class="fa fa-angle-left fa-lg"></i>Journal<span id="journal-counter">0</span>
 </div>
 <div id="journal" class="menu">
     <div class="title">
@@ -396,23 +378,19 @@
             <i class="fa fa-angle-right fa-lg"></i>
         </div>
     </div>
-    <div class="items">
-    </div>
+    <div class="items"></div>
     <div class="clear-all">
         <span>
-                    <div class="delete-icon">
-                        <div class="bar1"></div>
-                        <div class="bar2"></div>
-                        <div class="bar3"></div>
-                    </div>
-                    Clear All
-                </span>
+            <div class="delete-icon">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>Clear All
+        </span>
     </div>
 </div>
-
 <div class="open-console">
-    <i class="fa fa-angle-up fa-lg"></i>
-    Console
+    <i class="fa fa-angle-up fa-lg"></i>Console
 </div>
 <div id="console" class="menu">
     <div class="title">
@@ -421,8 +399,7 @@
             <i class="fa fa-angle-down"></i>
         </div>
     </div>
-    <div class="items">
-    </div>
+    <div class="items"></div>
 </div>
 
 <div id="popup">
@@ -431,37 +408,20 @@
 <div class="inner-wrap">
 <div class="title">
     <i class="fa fa-times close-me"></i>
-    <span> who is it? </span>
+    <span> Who is it? </span>
 </div>
 <div id="content-wrap">
 <div class="content" data-category="pokemons">
     <div class="tab-buttons">
-        <div class="pokemon-order-date pokemon-order-button selected" data-order-by="Date">
-            Date
-            <i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i>
-        </div>
-        <div class="pokemon-order-cp pokemon-order-button" data-order-by="Cp">
-            CP
-            <i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i>
-        </div>
-        <div class="pokemon-order-iv pokemon-order-button" data-order-by="Iv">
-            IV
-            <i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i>
-        </div>
-        <div class="pokemon-order-number pokemon-order-button" data-order-by="Number">
-            Number
-            <i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i>
-        </div>
-        <div class="pokemon-order-name pokemon-order-button" data-order-by="Name">
-            Name
-            <i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i>
-        </div>
+        <div class="pokemon-order-date pokemon-order-button selected" data-order-by="Date">Date<i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i></div>
+        <div class="pokemon-order-cp pokemon-order-button" data-order-by="Cp">CP<i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i></div>
+        <div class="pokemon-order-iv pokemon-order-button" data-order-by="Iv">IV<i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i></div>
+        <div class="pokemon-order-number pokemon-order-button" data-order-by="Number">Number<i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i></div>
+        <div class="pokemon-order-name pokemon-order-button" data-order-by="Name">Name<i class="fa fa-angle-up pokemon-order-chevron" aria-hidden="true"></i></div>
     </div>
 </div>
 <div class="content" data-category="pokedex">Pokedex</div>
 <div class="content" data-category="items">
-
-
 <div class="product" data-item-id="1">
     <div class="product-info">
         <div class="wrapper">
@@ -469,25 +429,16 @@
             <h1>Pokeball</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
-    </div>
-    <!-- <div class="recycle-action">
-        <input type="number" placeholder="0"/>
-        <div class="recycle-product" tabindex="-1">
-            <div class="confirm">are you sure? <span class="confirm-recycle">yes</span></div>
-            <i class="fa fa-trash fa-lg"></i> recycle
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
         </div>
-    </div> -->
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
+    </div>
 </div>
 
 <div class="product" data-item-id="2">
@@ -497,20 +448,17 @@
             <h1>Great Ball</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product" data-item-id="3">
     <div class="product-info">
         <div class="wrapper">
@@ -518,20 +466,17 @@
             <h1>Ultra Ball</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product" data-item-id="4">
     <div class="product-info">
         <div class="wrapper">
@@ -539,17 +484,15 @@
             <h1>Master Ball</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
 
@@ -561,17 +504,15 @@
             <h1>Potion</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
 
@@ -582,17 +523,15 @@
             <h1>Super Potion</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
 
@@ -603,20 +542,17 @@
             <h1>Hyper Potion</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+        <div class="product-extras">
+        <div class="slider">
+			<input type="text" name="name" value="" id="slider" />
+		</div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product brighter" data-item-id="104">
     <div class="product-info">
         <div class="wrapper">
@@ -624,17 +560,15 @@
             <h1>Max Potion</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
 
@@ -645,20 +579,17 @@
             <h1>Revive</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product" data-item-id="202">
     <div class="product-info">
         <div class="wrapper">
@@ -666,20 +597,17 @@
             <h1>Max Revive</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product" data-item-id="301">
     <div class="product-info">
         <div class="wrapper">
@@ -687,17 +615,15 @@
             <h1>Lucky Egg</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
 
@@ -708,20 +634,17 @@
             <h1>Incense</h1>
         </div>
     </div>
-                                    <div class="product-extras">
-                                        <div class="slider">
-                                            <input type="text" name="name" value="" id="slider" />
-
-                                        </div>
-                                        <div class="number-wrapper">
-                                            <span class="delete">0</span>/
-                                            <span class="number">0</span>
-                                            <span class="recycle"></span>
-                                            <!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
-                                        </div>
+    <div class="product-extras">
+        <div class="slider">
+            <input type="text" name="name" value="" id="slider" />
+        </div>
+        <div class="number-wrapper">
+            <span class="delete">0</span>/
+            <span class="number">0</span>
+            <span class="recycle"></span>
+        </div>
     </div>
 </div>
-
 <div class="product brighter" data-item-id="501">
     <div class="product-info">
         <div class="wrapper">
@@ -738,20 +661,17 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/701.png" alt="Razzberry"/>
-
 			<h1>Razzberry</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -759,20 +679,17 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/703.png" alt="Nanabberry"/>
-
 			<h1>Nanabberry</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -786,35 +703,30 @@
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
-<!--- EVOLUTIONITEM -->
+<!--- Evolution Items -->
 <div class="product brighter" data-item-id="1101">
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/1101.png" alt="Sunstone"/>
-
 			<h1>Sunstone</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -822,20 +734,17 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/1102.png" alt="Kingsrock"/>
-
 			<h1>Kingsrock</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -843,20 +752,17 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/1103.png" alt="Metalcoat"/>
-
 			<h1>Metalcoat</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -864,20 +770,17 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/1104.png" alt="Dragonscale"/>
-
 			<h1>Dragonscale</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
@@ -885,24 +788,20 @@
 	<div class="product-info">
 		<div class="wrapper">
 			<img src="images/items/1105.png" alt="Upgrade"/>
-
 			<h1>Upgrade</h1>
 		</div>
 	</div>
 	<div class="product-extras">
 		<div class="slider">
 			<input type="text" name="name" value="" id="slider"/>
-
 		</div>
 		<div class="number-wrapper">
 			<span class="delete">0</span>/
 			<span class="number">0</span>
 			<span class="recycle"></span>
-			<!--<i class="fa fa-circle-o-notch fa-spin"></i>-->
 		</div>
 	</div>
 </div>
-
 <div class="product" data-item-id="801">
     <div class="product-info">
         <div class="wrapper">
@@ -914,7 +813,7 @@
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>
 </div>
-<!--- EGGINCUBATOR -->
+<!--- Egg Incubators -->
 <div class="product brighter" data-item-id="901">
     <div class="product-info">
         <div class="wrapper">
@@ -924,7 +823,6 @@
     </div>
     <div class="number">∞</div>
 </div>
-
 <div class="product brighter" data-item-id="902">
     <div class="product-info">
         <div class="wrapper">
@@ -937,8 +835,7 @@
     </div>
 </div>
 </div>
-
-<!--- E G G S -->
+<!--- Egg Types -->
 <div class="content" data-category="eggs">
     <div class="egg">
         <div class="incubator">
@@ -1020,12 +917,11 @@
             <i> 10.0 </i> km
         </p>
     </div>
-
 </div>
 
 <div class="content" data-category="snipes"></div>
 
-<!-- S E T T I N G S -->
+<!-- Settings -->
 <div class="content" data-category="settings">
 <div class="tab-buttons">
     <div class="map-settings selected">Map</div>
@@ -1034,26 +930,23 @@
     <div class="other-settings">Other</div>
 </div>
 <div class="tab-pages">
-
-
 <div id="map-settings" style="display: block;">
     <div class="setting-topic">
         <h6 class="setting-name"> Map settings </h6>
-
         <div class="setting-part">
             <div class="setting-question">Map Service Provider</div>
             <div class="setting-answer">
                 <input type="radio" name="settings-map-provider" value="0" id="Gmaps">
                 <label for="Gmaps">Google Maps</label>
-                <br/>
+                <br />
                 <input type="radio" name="settings-map-provider" value="1" id="OSM">
-                <label for="OSM">Open Street Map</label> <br/>
+                <label for="OSM">Open Street Map</label>
+				<br />
             </div>
         </div>
-
         <div class="setting-part">
             <div class="setting-question">
-                Player tracking
+                Player Tracking
                 <span>Whether or not the map should follow the player keeping it centered</span>
             </div>
             <div class="setting-answer">
@@ -1062,7 +955,6 @@
                 </div>
             </div>
         </div>
-
         <div class="setting-part not-implemented">
             <div class="setting-question">
                 Map clearing
@@ -1073,59 +965,44 @@
                 <input type="number" name="settings-map-clearing" value="0"/> minutes
             </div>
         </div>
-
     </div>
-
-
     <div class="setting-topic">
         <h6 class="setting-name"> Google Maps </h6>
-
         <div class="setting-part">
             <div class="setting-question">
                 API key
-                <span>Not required</span>
+                <span>Not Required</span>
             </div>
             <div class="setting-answer">
                 <input type="text" name="settings-map-google-api-key" value="" style="width: 100%"/>
             </div>
         </div>
-
     </div>
-
-
-
     <div class="setting-topic">
         <h6 class="setting-name"> Open Street Map </h6>
-
         <div class="setting-part not-implemented">
             <div class="setting-question">
                 API key
-                <div class="not-implemented-error">not implemented</div>
-                <span>Not required</span>
+                <div class="not-implemented-error">Not Implemented</div>
+                <span>Not Required</span>
             </div>
             <div class="setting-answer">
                 <input type="text" name="settings-map-osm-api-key" value="" style="width: 100%"/>
             </div>
         </div>
-
     </div>
-
 </div>
-
-
 <div id="client-settings">
     <div class="setting-topic">
-        <h6 class="setting-name"> Client settings </h6>
-
+        <h6 class="setting-name"> Client Settings </h6>
         <div class="setting-part">
             <div class="setting-question">
-                Address
+                IP Address
             </div>
             <div class="setting-answer">
                 <input type="text" name="settings-client-address" value="" required/>
             </div>
         </div>
-
         <div class="setting-part">
             <div class="setting-question">
                 Port
@@ -1134,7 +1011,6 @@
                 <input type="number" name="settings-client-port" value="0" min="0" max="65535" required/>
             </div>
         </div>
-
         <div class="setting-part">
             <div class="setting-question">
                 Use SSL
@@ -1148,8 +1024,8 @@
 
         <div class="setting-part">
             <div class="setting-question">
-                Connection string
-                <span>Preview only</span>
+                Connection String
+                <span>Preview Only</span>
             </div>
             <div class="setting-answer">
                 <span class="settings-client-connection-string"></span>
@@ -1157,11 +1033,9 @@
         </div>
     </div>
 </div>
-
 <div id="notification-settings">
     <div class="setting-topic">
         <h6 class="setting-name"> Journal Notifications </h6>
-
         <div class="setting-part">
             <div class="setting-question">
                 Example
@@ -1173,7 +1047,7 @@
 
         <div class="setting-part">
             <div class="setting-question">
-                Events to show
+                Events to Show
             </div>
             <div class="setting-answer">
                 <input type="checkbox" name="settings-notifications-journal-pokestop-used" value="pokestop-used" checked>Pokestop<br/>
@@ -1186,24 +1060,21 @@
                 <input type="checkbox" name="settings-notifications-journal-pokemon-transfer" value="pokemon-transfer" checked>Transfer<br/>
             </div>
         </div>
-
         <div class="setting-part not-implemented">
             <div class="setting-question">
-                List clearing
-                <div class="not-implemented-error">not implemented</div>
+                List Clearing
+                <div class="not-implemented-error">Not Implemented</div>
                 <span>How long until old events get removed from the journal. 0 = never</span>
             </div>
             <div class="setting-answer">
                 <input type="number" name="settings-notifications-journal-clearing" value="0"/> minutes
             </div>
         </div>
-
         <div class="setting-part not-implemented">
             <div class="setting-question">
                 Enable <b> Clear all </b> button animation
-                <div class="not-implemented-error">not implemented</div>
+                <div class="not-implemented-error">Not Implemented</div>
                 <span>If you disable this, the <b> Clear all </b> button will wipe out notification instantly (without any animation).</span>
-
             </div>
             <div class="setting-answer">
                 <div class="option-toggle active" name="settings-notifications-journal-clearing-animation">
@@ -1215,28 +1086,25 @@
 
     <div class="setting-topic">
         <h6 class="setting-name"> Desktop notifications </h6>
-
         <div class="setting-part">
             <div class="setting-question">
-                Permission status
+                Permission Status
             </div>
             <div class="setting-answer">
-                <span id="notification-desktop-status">unknown</span>
+                <span id="notification-desktop-status">Unknown</span>
             </div>
         </div>
-
         <div class="setting-part">
             <div class="setting-question">
                 Example
             </div>
             <div class="setting-answer">
-                <span class="example" id="show-notification-desktop-example-button">show example</span>
+                <span class="example" id="show-notification-desktop-example-button">Show Example</span>
             </div>
         </div>
-
         <div class="setting-part">
             <div class="setting-question">
-                Events to show
+                Events to Show
             </div>
             <div class="setting-answer">
                 <input type="checkbox" name="settings-notifications-desktop-pokestop-used" value="pokestop-used">Pokestop<br/>
@@ -1244,15 +1112,14 @@
                 <input type="checkbox" name="settings-notifications-desktop-pokemon-snipe" value="pokemon-snipe">Snipe<br/>
                 <input type="checkbox" name="settings-notifications-desktop-pokemon-evolved" value="pokemon-evolved">Evolve<br/>
                 <input type="checkbox" name="settings-notifications-desktop-egg-hatched" value="egg-hatched">Hatch<br/>
-                <input type="checkbox" name="settings-notifications-desktop-incubator-status" value="incubator-status">Incubator status<br/>
+                <input type="checkbox" name="settings-notifications-desktop-incubator-status" value="incubator-status">Incubator Status<br/>
                 <input type="checkbox" name="settings-notifications-desktop-item-recycle" value="item-recycle">Recycle<br/>
                 <input type="checkbox" name="settings-notifications-desktop-pokemon-transfer" value="pokemon-transfer">Transfer<br/>
             </div>
         </div>
     </div>
-
     <div class="setting-topic">
-        <h6 class="setting-name"> Toast notifications </h6>
+        <h6 class="setting-name"> Toast (In-App) Notifications </h6>
 
         <div class="setting-part">
             <div class="setting-question">
@@ -1265,7 +1132,7 @@
 
         <div class="setting-part">
             <div class="setting-question">
-                Events to show
+                Events to Show
             </div>
             <div class="setting-answer">
                 <input type="checkbox" name="settings-notifications-toast-pokestop-used" value="pokestop-used">Pokestop<br/>
@@ -1273,16 +1140,14 @@
                 <input type="checkbox" name="settings-notifications-toast-pokemon-snipe" value="pokemon-snipe">Snipe<br/>
                 <input type="checkbox" name="settings-notifications-toast-pokemon-evolved" value="pokemon-evolved">Evolve<br/>
                 <input type="checkbox" name="settings-notifications-toast-egg-hatched" value="egg-hatched">Hatch<br/>
-                <input type="checkbox" name="settings-notifications-toast-incubator-status" value="incubator-status">Incubator status<br/>
+                <input type="checkbox" name="settings-notifications-toast-incubator-status" value="incubator-status">Incubator Status<br/>
                 <input type="checkbox" name="settings-notifications-toast-item-recycle" value="item-recycle">Recycle<br/>
                 <input type="checkbox" name="settings-notifications-toast-pokemon-transfer" value="pokemon-transfer">Transfer<br/>
             </div>
         </div>
     </div>
-	
     <div class="setting-topic">
 		<h6 class="setting-name"> Audio Notifications </h6>
-
 		<div class="setting-part">
 			<div class="setting-question">
 				Example
@@ -1291,44 +1156,30 @@
 				<span class="example" id="show-notification-audio-example-button">Show Example</span>
 			</div>
 		</div>
-
 		<div class="setting-part">
 			<div class="setting-question">
 				Events to Show
 			</div>
 			<div class="setting-answer">
-				<input type="checkbox" name="settings-notifications-audio-pokestop-used"
-					   value="pokestop-used">Pokestop<br/>
-				<input type="checkbox"
-					   name="settings-notifications-audio-pokemon-capture"
-					   value="pokemon-capture">Capture<br/>
-				<input type="checkbox" name="settings-notifications-audio-pokemon-snipe"
-					   value="pokemon-snipe">Snipe<br/>
-				<input type="checkbox"
-					   name="settings-notifications-audio-pokemon-evolved"
-					   value="pokemon-evolved">Evolve<br/>
-				<input type="checkbox" name="settings-notifications-audio-egg-hatched"
-					   value="egg-hatched">Hatch<br/>
-				<input type="checkbox"
-					   name="settings-notifications-audio-incubator-status"
-					   value="incubator-status">Incubator status<br/>
-				<input type="checkbox" name="settings-notifications-audio-item-recycle"
-					   value="item-recycle">Recycle<br/>
-				<input type="checkbox"
-					   name="settings-notifications-audio-pokemon-transfer"
-					   value="pokemon-transfer">Transfer<br/>
+				<input type="checkbox" name="settings-notifications-audio-pokestop-used" value="pokestop-used">Pokestop<br/>
+				<input type="checkbox" name="settings-notifications-audio-pokemon-capture" value="pokemon-capture">Capture<br/>
+				<input type="checkbox" name="settings-notifications-audio-pokemon-snipe" value="pokemon-snipe">Snipe<br/>
+				<input type="checkbox" name="settings-notifications-audio-pokemon-evolved" value="pokemon-evolved">Evolve<br/>
+				<input type="checkbox" name="settings-notifications-audio-egg-hatched" value="egg-hatched">Hatch<br/>
+				<input type="checkbox" name="settings-notifications-audio-incubator-status" value="incubator-status">Incubator status<br/>
+				<input type="checkbox" name="settings-notifications-audio-item-recycle" value="item-recycle">Recycle<br/>
+				<input type="checkbox" name="settings-notifications-audio-pokemon-transfer" value="pokemon-transfer">Transfer<br/>
 			</div>
 		</div>
 	</div>
 </div>
-
 <div id="other-settings">
     <div class="setting-topic">
         <h6 class="setting-name"> Foo </h6>
         <div class="setting-part not-implemented">
             <div class="setting-question">
                 Your hobby
-                <span>What u do in yer free time?</span>
+                <span>What do you do in your free time?</span>
             </div>
             <div class="setting-answer">
                 <select>
@@ -1351,31 +1202,22 @@
         </div>
     </div>
 </div>
-
-
 </div>
 </div>
-                            <div class="content" data-category="snipes"></div>
+<div class="content" data-category="snipes"></div>
 <div class="content bot-config-popup" data-category="bot-config">
 </div>
 </div>
-
 <div id="settings-buttons" class="disabled">
-    <div class="button" id="save-changes">
-        Save
-    </div>
-    <div class="button" id="cancel-changes">
-        Cancel
-    </div>
+    <div class="button" id="save-changes">Save</div>
+    <div class="button" id="cancel-changes">Cancel</div>
 </div>
-
 <div id="pokemon-info">
     <div class="vertical-align-helper"></div>
     <div id="pokemon-content">
         <i class="fa fa-times close-button"></i>
         <i class="fa fa-star pokemon-info-favorite" aria-hidden="true"></i>
         <h1 id="pokemon-info-name">Gyarados</h1>
-
         <h2 id="pokemon-info-nickname">"test"</h2>
         <img id="pokemon-info-image" src="images/pokemon/130.png"/>
         <div id="pokemon-type"></div>
@@ -1389,23 +1231,20 @@
         <div class="move move1"></div>
         <div class="move move2"></div>
         <div class="pkm-candies"><span id="pkm-candies-val"></span><span id="pkm-candies-req"></span></div>
-
         <div class="controls">
             <div id="transfer-pokemon-button" class="pokemon-info-button" tabindex="-1">
-                <div class="confirm">are you sure? <span id="confirm-transfer" class="confirm-button">yes</span></div>
-                <i class="fa fa-trash fa-lg"></i> transfer
+                <div class="confirm">Are you Sure? <span id="confirm-transfer" class="confirm-button">Yes</span></div>
+                <i class="fa fa-trash fa-lg"></i> Transfer
             </div>
             <div id="evolve-pokemon-button" class="pokemon-info-button" tabindex="-1">
-                <div class="confirm">are you sure? <span id="confirm-evolve" class="confirm-button">yes</span></div>
-                <div class="button-disabled-reason">Don't even try</div>
+                <div class="confirm">Are you Sure? <span id="confirm-evolve" class="confirm-button">Yes</span></div>
+                <div class="button-disabled-reason">Don't even Try</div>
                 <i class="fa fa-arrow-circle-up fa-lg"></i>
-                <span id="evolve-pokemon-button-text">evolve</span>
+                <span id="evolve-pokemon-button-text">Evolve</span>
             </div>
         </div>
     </div>
 </div>
-
-
 <div class="container center spinner-overlay" style="background-color: rgba(237, 237, 237, 0.7); display: none;">
     <div>
         <i class="fa fa-circle-o-notch fa-3x fa-spin"></i>
@@ -1441,18 +1280,17 @@
         <div>
             <img src="images/items/Stardust.png" alt="Stardust"/>
             <span class="profile-stardust">
-                        <span class="profile-stardust-loading"> <i class="fa fa-circle-o-notch fa-spin"></i> </span>
-                        <span class="profile-stardust-loaded" style="display: none">
-                            <span class="profile-stardust-current">0</span>
-                        </span>
-                    </span>
+                <span class="profile-stardust-loading"> <i class="fa fa-circle-o-notch fa-spin"></i> </span>
+                <span class="profile-stardust-loaded" style="display: none">
+                    <span class="profile-stardust-current">0</span>
+                </span>
+            </span>
         </div>
         <div>
             <img src="images/items/PokeCoin.png" alt="Pokecoin"/>
             <span class="profile-pokecoin"><i class="fa fa-circle-o-notch fa-spin"></i></span>
         </div>
     </div>
-
 </div>
 <div id="notification">
     <i class="fa fa-circle-o-notch fa-spin"></i>
@@ -1478,7 +1316,7 @@
     <script type="text/javascript" src="../bower_components/jquery.easing/js/jquery.easing.compatibility.js"></script>
     <script src="../bower_components/jsoneditor/dist/jsoneditor.js"></script>
     <!-- endbuild -->
-<script>
+<script type="text/javascript">
     var key = null;
     var settingsJson = localStorage.getItem("settings");
     if (settingsJson) {
@@ -1496,9 +1334,7 @@
             key = "AIzaSyBjrq_CCDjmgNLJZnLBrMRgIxTJrgW_LaY"
         }
     if (key) {
-        document.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=' +
-            key +
-            '"><\/script>');
+        document.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=' + key + '"><\/script>');
     } else {
         document.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"><\/script>');
     }
