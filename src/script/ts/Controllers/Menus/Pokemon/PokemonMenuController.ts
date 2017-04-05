@@ -1,4 +1,6 @@
-﻿class PokemonMenuController implements IPokemonMenuController {
+﻿/// <reference path="../../../../index.d.ts" />
+
+class PokemonMenuController implements IPokemonMenuController {
     private config: IPokemonMenuControllerConfig;
 
     private pokemonList: IPokemonListEvent;
@@ -8,8 +10,8 @@
 
     constructor(config: IPokemonMenuControllerConfig) {
         this.config = config;
-        this.config.pokemonDetailsElement.find("#confirm-transfer").click(this.transferPokemon);
-        this.config.pokemonDetailsElement.find("#confirm-evolve").click(this.evolvePokemon);
+        //this.config.pokemonDetailsElement.find("#confirm-transfer").click(this.transferPokemon);
+        //this.config.pokemonDetailsElement.find("#confirm-evolve").click(this.evolvePokemon);
         this.currentOrdering = PokemonOrdering.Date;
         this.currentReverse = true;
         this.config.pokemonOrderButtons.click(this.onOrderButtonClicked);
@@ -102,20 +104,29 @@
         }
         this.config.pokemonLoadingSpinner.fadeOut(150);
     }
+    private displayPokemonInfo = (pokemon: IPokemonListEntry): void => {
+        const info: IPokemonInfo = pokemon;
+        info.Name = this.config.translationController.translation.pokemonNames[pokemon.PokemonId];
 
-    private pokemonClick = (ev: JQueryEventObject) => {
-        const pokemonBox = $(ev.target).closest(".pokemon");
-        const pokemonUniqueIdStr = pokemonBox.attr("data-pokemon-unique-id");
-        const pokemon = _.find(this.pokemonList.Pokemons, p => p.Id === pokemonUniqueIdStr);
-        this.currentPokemon = pokemon;
-        const pokemonName = this.config.translationController.translation.pokemonNames[pokemon.PokemonId];
-        const roundedIv = Math.floor(pokemon.Perfection * 100) / 100;
-        const evolveButton = this.config.pokemonDetailsElement.find("#evolve-pokemon-button");
+        info.PokemonTypes = [];
+        info.Move1Name = this.config.translationController.translation.moveNames[pokemon.Move1] || "No translation for " + info.Move1;
+        info.Move2Name = this.config.translationController.translation.moveNames[pokemon.Move2] || "No translation for " + info.Move2;
+        info.CreationDateTime = new Date(+info.CreationTimeMs).toLocaleString(navigator.language, { hour12: true }).toUpperCase()
+        const pokemonData = StaticData.pokemonData[pokemon.PokemonId];
+        for (let i = 0; i < pokemonData.elements.length; i++) {
+            const elementStr = PokeElement[pokemonData.elements[i]].toLowerCase();
+            info.PokemonTypes.push(elementStr)
+        }
+
+        this.config.pokemonMenuElement.closest("#content-wrap").addClass("blurred");
+        const html = $(app.templates.Pokemon.PokemonInfo(pokemon));
+        const evolveButton = html.find('#evolve-pokemon-button')
         if (StaticData.pokemonData[pokemon.PokemonId].evolvesInto.length === 0) {
             evolveButton.hide();
         } else {
             const candiesRequired = StaticData.pokemonData[pokemon.PokemonId].candyToEvolve;
-            evolveButton.find(".button-disabled-reason").text(`${candiesRequired} candies required`);
+            const neededCandy = candiesRequired - info.FamilyCandies
+            evolveButton.find(".button-disabled-reason").text(`${neededCandy} of ${candiesRequired} candies required`);
             if (typeof pokemon.FamilyCandies !== "undefined" && pokemon.FamilyCandies < candiesRequired) {
                 evolveButton.addClass("disabled");
             } else {
@@ -123,53 +134,69 @@
             }
             evolveButton.show();
         }
-        this.config.pokemonDetailsElement.find("#pokemon-info-name").text(pokemonName);
-        const nicknameElement = this.config.pokemonDetailsElement.find("#pokemon-info-nickname");
-        if (pokemon.Nickname) {
-            nicknameElement.show();
-            nicknameElement.text(`"${pokemon.Nickname}"`);
-        } else {
-            nicknameElement.hide();
-        }
-        const favoriteStar = this.config.pokemonDetailsElement.find(".pokemon-info-favorite");
-        if (pokemon.Favorite > 0) {
-            favoriteStar.show();
-        } else {
-            favoriteStar.hide();
-        }
-        this.config.pokemonDetailsElement.find("#pokemon-info-image").attr("src", `images/pokemon/${pokemon.PokemonId}.png`);
-        this.config.pokemonDetailsElement.find(".attack").text(pokemon.IndividualAttack);
-        this.config.pokemonDetailsElement.find(".defense").text(pokemon.IndividualDefense);
-        this.config.pokemonDetailsElement.find(".stamina").text(pokemon.IndividualStamina);
-        this.config.pokemonDetailsElement.find(".total-iv").text(`${roundedIv}%`);
-        this.config.pokemonDetailsElement.find(".poke-cp").text(`${pokemon.Cp}`);
-        this.config.pokemonDetailsElement.find("#pkm-candies-val").text(`${pokemon.FamilyCandies}`);
+        html.bind('click', function () { ; return false; })
+        html.find('#confirm-transfer').click(this.transferPokemon)
+        html.find('#confirm-evolve').click(this.evolvePokemon)
+        html.find('#confirm-upgrade').click(this.upgradePokemon)
+        html.find('#confirm-upgrade-max').click(this.maxUpgradePokemon)
 
-        const move1Name = this.config.translationController.translation.moveNames[pokemon.Move1];
-        const move2Name = this.config.translationController.translation.moveNames[pokemon.Move2];
-        const pokemonData = StaticData.pokemonData[pokemon.PokemonId];
-        const elementElement = this.config.pokemonDetailsElement.find("#pokemon-type");
-        elementElement.html("");
-        for (let i = 0; i < pokemonData.elements.length; i++) {
-            const elementStr = PokeElement[pokemonData.elements[i]].toLowerCase();
-            const elementHtml = `<span class="${elementStr}">${elementStr}</span>`;
-            const el = $(elementHtml);
-            elementElement.append(el);
-        }
-        this.config.pokemonDetailsElement.find(".move1").text(move1Name);
-        this.config.pokemonDetailsElement.find(".move2").text(move2Name);
-
-        this.config.pokemonMenuElement.closest("#content-wrap").addClass("blurred");
+        html.find('.close-button').click(this.close);
+        this.config.pokemonDetailsElement.html("").append(html);
         this.config.pokemonDetailsElement.fadeIn();
+    }
+
+    private pokemonClick = (ev: JQueryEventObject) => {
+        const pokemonBox = $(ev.target).closest(".pokemon");
+        const pokemonUniqueIdStr = pokemonBox.attr("data-pokemon-unique-id");
+        const pokemon = _.find(this.pokemonList.Pokemons, p => p.Id === pokemonUniqueIdStr);
+        this.currentPokemon = pokemon;
+        const info: IPokemonInfo = pokemon;
+        this.displayPokemonInfo(info);
+    }
+
+    private close = (ev: JQueryEventObject) => {
+        this.config.pokemonMenuElement.closest("#content-wrap").removeClass("blurred");
+        this.config.pokemonDetailsElement.fadeOut()
     }
 
     private transferPokemon = (ev: JQueryEventObject) => {
         const pokemonUniqueId = this.currentPokemon.Id;
         this.config.requestSender.sendTransferPokemonRequest(pokemonUniqueId);
+        this.config.pokemonDetailsElement.fadeOut()
+        this.close(ev)
+    }
+
+    public updatePokemonAfterUpgraded = (pkm: IUpgradeEvent) => {
+        if (this.currentPokemon.Id == pkm.Id) {
+            this.currentPokemon.Cp = pkm.Cp;
+            this.currentPokemon.FamilyCandies = pkm.FamilyCandies;
+            this.displayPokemonInfo(this.currentPokemon);
+        }
+
+        this.pokemonList.Pokemons.forEach((item, index, arr) => {
+            if (item.Id == pkm.Id) {
+                item.Cp = pkm.Cp;
+                item.FamilyCandies = pkm.FamilyCandies;
+            }
+        });
+
+        this.updatePokemonListInner();
     }
 
     private evolvePokemon = (ev: JQueryEventObject) => {
         const pokemonUniqueId = this.currentPokemon.Id;
         this.config.requestSender.sendEvolvePokemonRequest(pokemonUniqueId);
+        this.config.pokemonDetailsElement.fadeOut()
+        this.close(ev)
+    }
+
+    private upgradePokemon = (ev: JQueryEventObject) => {
+        const pokemonUniqueId = this.currentPokemon.Id;
+        this.config.requestSender.sendUpgradePokemonRequest(pokemonUniqueId, false);
+    }
+
+    private maxUpgradePokemon = (ev: JQueryEventObject) => {
+        const pokemonUniqueId = this.currentPokemon.Id;
+        this.config.requestSender.sendUpgradePokemonRequest(pokemonUniqueId, true);
     }
 }

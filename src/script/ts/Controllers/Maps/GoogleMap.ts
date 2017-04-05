@@ -1,4 +1,8 @@
-interface Window {
+///<reference path="../../../../../typings/index.d.ts" />
+///<reference  path="../../../index.d.ts"/> 
+
+interface Window 
+{
     setIwStyles();
 }
 
@@ -20,14 +24,16 @@ class GoogleMap implements IMap {
 
     private map: google.maps.Map;
     private playerMarker: google.maps.Marker;
+    private clickedMarker: google.maps.Marker;
     private locationHistory: Array<any> = [];
     private locationLine: google.maps.Polyline;
-
+    private snipePath : google.maps.Polyline;
     // TODO: refactor this big time
     private pokestops: { [id: string]: IGoogleMapPokestopInfo } = {};
     private gyms: { [id: string]: IGoogleMapGymInfo } = {};
     private capMarkers: Array<CaptureMarker> = [];
-
+    private snipeMarker :SnipeMarker;
+    
     constructor(config: IMapConfig) {
         this.config = config;
 
@@ -336,9 +342,6 @@ class GoogleMap implements IMap {
         ]
     }
 ]
-
-
-
         // Initialize the map.
         var mapOptions: google.maps.MapOptions = {
             zoom: 16,
@@ -361,8 +364,9 @@ class GoogleMap implements IMap {
                 scaledSize: new google.maps.Size(50, 55),                
                 anchor: new google.maps.Point(25, 45)
             },
-            zIndex: 300
+            zIndex: 300000
         });
+        this.map.addListener('click', this.onMapClick);
 
         /*setTimeout(() => {
             console.log("setting new map style");
@@ -371,7 +375,42 @@ class GoogleMap implements IMap {
         }, 10000);*/
 
     }
-
+    public onMapClick = (ev:any): void => {
+        if (this.clickedMarker) {
+            this.clickedMarker.setMap(null)
+            //remove current marker
+        }
+        const lat = ev.latLng.lat();
+        const lng = ev.latLng.lng();
+        this.clickedMarker = new google.maps.Marker({
+            map: this.map,
+            position: ev.latLng,
+            icon: {
+                url: "images/markers/location.png",
+                scaledSize: new google.maps.Size(50, 55),
+                anchor: new google.maps.Point(25, 45)
+            },
+            zIndex: 300000
+        });
+        const current = this;
+        this.clickedMarker.addListener("click", () => {
+            const popupInfoWIndow = new google.maps.InfoWindow({
+                content: app.templates.SelectedPostionPopup({
+                    Latitude: lat, Longitude: lng
+                })
+            });
+            popupInfoWIndow.open(this.map, this.clickedMarker);
+            $('#current-position-move').click(function () {
+                current.sendMoveToRequest(lat, lng, null,popupInfoWIndow)
+                //change icon or do what ever ui change for indicated target.....
+            })
+            window.setIwStyles();
+        });
+    }
+    public sendMoveToRequest = (lat: number, lng: number,fortId:string,popup: google.maps.InfoWindow): void => {
+        this.config.requestSender.sendMoveToRequest(lat, lng, false, fortId);
+        popup.close();
+    }
     public movePlayer = (position: IUpdatePositionEvent): void => {
         const posArr = [position.Latitude, position.Longitude];
         const pos = new google.maps.LatLng(posArr[0], posArr[1]);
@@ -421,6 +460,7 @@ class GoogleMap implements IMap {
             strokeWeight: 4
         });
         this.locationLine.setMap(this.map);
+        this.UpdateDirectionLineToSnipe();
     }
 
     public setPokeStops = (pokeStops: IPokeStopEvent[]): void => {
@@ -518,6 +558,22 @@ class GoogleMap implements IMap {
         let setStatus = PokeStopStatus.Visited;
         const stopId = pokeStopUsed.Id;
         const pStop = this.pokestops[stopId];
+        if(!pStop) {
+            const newStop: IPokeStopEvent = {
+                Latitude : pokeStopUsed.Latitude,
+                Longitude : pokeStopUsed.Longitude,
+                Id : pokeStopUsed.Id,
+                CooldownCompleteTimestampMs : "",
+                Name: pokeStopUsed.Name,
+                LastModifiedTimestampMs:"",
+                LureInfo:null,
+                Type:FortType.PokeStop,
+                Timestamp: pokeStopUsed.Timestamp
+            }
+
+            const arr :IPokeStopEvent[] = [newStop]
+            this.setPokeStops(arr)        
+        }
         pStop.event.Name = pokeStopUsed.Name;
         if (pStop.event.Status === PokeStopStatus.Lure) {
             setStatus = PokeStopStatus.VisitedLure;
@@ -525,20 +581,72 @@ class GoogleMap implements IMap {
 
         pStop.event.Status = setStatus;
         pStop.marker.setIcon(this.getStopIconData(setStatus));
-        const newContent = this.getStopInfoWindowContent(pStop.event);
-        const newContentHtml = newContent.html();
+        
+        const newContentHtml = app.templates.InfoWindow.PokestopInfoWindow(pStop.event)
         pStop.infoWindow.setContent(newContentHtml);
        
     }
 
+    public onSnipePokemonStart(snipePokemon: IHumanWalkSnipeStartEvent) : void {
+       console.log(snipePokemon);
+       if(this.snipeMarker) {
+            this.snipeMarker.remove()
+        }
+
+        let name = this.config.translationController.translation.pokemonNames[snipePokemon.PokemonId]
+        const snipeMarker = new SnipeMarker (
+            new google.maps.LatLng(snipePokemon.Latitude, snipePokemon.Longitude),
+            this.map,
+            snipePokemon ,
+            {
+                PokemonId: snipePokemon.PokemonId,
+                Name:name
+            }
+        );
+        
+        this.snipeMarker = snipeMarker;
+        this.UpdateDirectionLineToSnipe();
+    }
+    public onHumanSnipeReachedDestination(ev:IHumanWalkSnipeReachedEvent) : void {
+        if(this.snipeMarker) {
+            this.snipeMarker.remove();
+            this.snipeMarker == null;
+        }
+    }
+    private UpdateDirectionLineToSnipe() :void {
+        if(this.snipePath) {
+            this.snipePath.setMap(null);
+            this.snipePath = null;
+        }
+        if(this.snipeMarker == null) return;
+
+        let currentPos = this.playerMarker.getPosition()
+        let snipePos = this.snipeMarker.getPosition();
+        var directionLine = [
+          {lat:snipePos.lat(), lng: snipePos.lng()},
+          {lat: currentPos.lat(), lng: currentPos.lng()},
+        ];
+
+        this.snipePath = new google.maps.Polyline({
+          path: directionLine,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        this.snipePath.setMap(this.map);
+    }
     public onPokemonCapture(pokemonCapture: IPokemonCaptureEvent): void {
         console.log(pokemonCapture);
-
+        let name = this.config.translationController.translation.pokemonNames[pokemonCapture.Id]
         const captureMarker = new CaptureMarker (
             new google.maps.LatLng(pokemonCapture.Latitude, pokemonCapture.Longitude),
             this.map,
+            pokemonCapture ,
             {
-                PokemonId: pokemonCapture.Id
+                PokemonId: pokemonCapture.Id,
+                Name:name
             }
         );
         this.capMarkers.push(captureMarker);
@@ -554,56 +662,23 @@ class GoogleMap implements IMap {
 
         return psMarker;
     }
-
-    private getStopInfoWindowContent = (pstop: IPokeStopEvent): JQuery => {
-        const pstopName = pstop.Name || "Unknown";
-        const template = this.config.infoWindowTemplate.clone();
-        const wrap = template.find(".iw-wrap");
-        const status = wrap.find(".iw-status");
-        const icon = wrap.find(".iw-icon");
-        wrap.addClass("iw-pokestop");
-        switch (pstop.Status) {
-            case PokeStopStatus.Normal:
-                icon.attr("src", "images/gui/pokestop.png");
-                status.text("ready");
-                break;
-            case PokeStopStatus.Visited:
-                icon.attr("src", "images/gui/visited-pokestop.png");
-                status.text("visited");
-                wrap.addClass("iw-pokestop-visited");
-                break;
-            case PokeStopStatus.Lure:
-                icon.attr("src", "images/gui/lured-pokestop.png");
-                status.text("ready");
-                wrap.addClass("iw-pokestop-lure");
-                break;
-            case PokeStopStatus.VisitedLure:
-                icon.attr("src", "images/gui/lured-visited-pokestop.png");
-                status.text("visited");
-                wrap.addClass("iw-pokestop-visited");
-                wrap.addClass("iw-pokestop-lure");
-                break;
-        }
-        const roundedLat = Math.round(pstop.Latitude * 10000000) / 10000000;
-        const roundedLng = Math.round(pstop.Longitude * 10000000) / 10000000;
-
-        wrap.find(".iw-name .iw-detail-header").text("Pokestop");
-        wrap.find(".iw-name .iw-detail-value").text(pstopName);
-        wrap.find(".iw-latitude .iw-detail-value").text(roundedLat);
-        wrap.find(".iw-longitude .iw-detail-value").text(roundedLng);
-        return template;
-    }
-
+                                    
     private createStopInfoWindow = (pstop: IPokeStopEvent, marker: google.maps.Marker): google.maps.InfoWindow => {
-        const content = this.getStopInfoWindowContent(pstop);
-        const html = content.html();
+        const html = app.templates.InfoWindow.PokestopInfoWindow(pstop)
         const infoWindow = new google.maps.InfoWindow({
             content: html
         });
-
+        let me = this;
         marker.addListener("click", () => {
             infoWindow.open(this.map, marker);
             window.setIwStyles();
+            $(".iw-pokestop-move-to[rel='" + pstop.Id +"']").unbind("click").click(function() {
+                const fortId = $(this).attr("data-fortId");
+                const lat = parseFloat($(this).attr("data-latitude")) ;
+                const lng = parseFloat($(this).attr("data-longitude"));
+                me.sendMoveToRequest(pstop.Latitude,pstop.Latitude, pstop.Id, infoWindow);
+            }) 
+
         });
 
         return infoWindow;
@@ -640,82 +715,34 @@ class GoogleMap implements IMap {
         return gMarker;
     }
 
-    private getGymInfoWindowContent = (gym: IGymEvent): JQuery => {
-        const gymName = gym.Name || "Unknown";
-        const template = this.config.infoWindowTemplate.clone();
-        const wrap = template.find(".iw-wrap");
-        const status = wrap.find(".iw-status");
-        const icon = wrap.find(".iw-icon");
-        const emblem = wrap.find(".iw-gym-team-emblem");
-        emblem.show();
-        wrap.addClass("iw-gym");
-        switch (gym.OwnedByTeam) {
-            case PlayerTeam.Neutral:
-                status.text("neutral");
-                icon.attr("src", "images/gui/unoccupied-icon.png");
-                emblem.attr("src", "images/gui/unoccupied.png");
-                wrap.addClass("iw-gym-neutral");
-                break;
-            case PlayerTeam.Instinct:
-                status.text("instinct");
-                wrap.addClass("iw-gym-instinct");
-                icon.attr("src", "images/gui/instinct-icon.png");
-                emblem.attr("src", "images/gui/instinct.png");
-                break;
-            case PlayerTeam.Mystic:
-                status.text("mystic");
-                wrap.addClass("iw-gym-mystic");
-                icon.attr("src", "images/gui/mystic-icon.png");
-                emblem.attr("src", "images/gui/mystic.png");
-                break;
-            case PlayerTeam.Valor:
-                status.text("valor");
-                wrap.addClass("iw-gym-valor");
-                icon.attr("src", "images/gui/valor-icon.png");
-                emblem.attr("src", "images/gui/valor.png");
-                break;
-        }
-
-        const roundedLat = Math.round(gym.Latitude * 10000000) / 10000000;
-        const roundedLng = Math.round(gym.Longitude * 10000000) / 10000000;
+    private createGymInfoWindow = (gym: IGymEvent, marker: google.maps.Marker): google.maps.InfoWindow => {
+        //const content = this.getGymInfoWindowContent(gym);
+        const data:IGymInfoWindow =  gym;
         const gymExp = parseInt(gym.GymPoints);
         const gymLevel = StaticData.calculateCurrentGymLevel(gymExp);
         const nextGymLevelRequired = StaticData.totalExpForGymLevel[gymLevel + 1];
+        const pokemonName = this.config.translationController.translation.pokemonNames[gym.GuardPokemonId];
+        
+        data.DefenderName = pokemonName; 
+        data.GymLevel = gymLevel
+        data.NextGymLevelRequired =  nextGymLevelRequired
 
-        wrap.find(".iw-name .iw-detail-header").text("Gym");
-        wrap.find(".iw-name .iw-detail-value").text(gymName);
+        const html = app.templates.InfoWindow.GymInfoWindow(gym);
 
-        wrap.find(".iw-gym-level").show();
-        wrap.find(".iw-gym-xp").show();
-        wrap.find(".iw-gym-hr-general").show();
-        wrap.find(".iw-gym-level .iw-detail-value").text(gymLevel);
-        wrap.find(".iw-gym-xp .iw-detail-value").text(`${gymExp} / ${nextGymLevelRequired}`);
-
-        wrap.find(".iw-latitude .iw-detail-value").text(roundedLat);
-        wrap.find(".iw-longitude .iw-detail-value").text(roundedLng);
-
-        if (gym.OwnedByTeam !== PlayerTeam.Neutral) {
-            wrap.find(".iw-gym-defender").show();
-            wrap.find(".iw-gym-defender-cp").show();
-            wrap.find(".iw-gym-hr-defender").show();
-            wrap.find(".iw-gym-defender-icon").attr("src", `images/pokemon/${gym.GuardPokemonId}.png`);
-            const pokemonName = this.config.translationController.translation.pokemonNames[gym.GuardPokemonId];
-            wrap.find(".iw-gym-defender-name").text(pokemonName);
-            wrap.find(".iw-gym-defender-cp .iw-detail-value").text(gym.GuardPokemonCp);
-        }
-        return template;
-    }
-
-    private createGymInfoWindow = (gym: IGymEvent, marker: google.maps.Marker): google.maps.InfoWindow => {
-        const content = this.getGymInfoWindowContent(gym);
-        const html = content.html();
         const infoWindow = new google.maps.InfoWindow({
             content: html
         });
-
+        let me = this;
         marker.addListener("click", () => {
             infoWindow.open(this.map, marker);
             window.setIwStyles();
+            $(".iw-gym-move-to[rel='" + gym.Id +"']").unbind("click").click(function() {
+                const fortId = $(this).attr("data-fortId");
+                const lat = parseFloat($(this).attr("data-latitude")) ;
+                const lng = parseFloat($(this).attr("data-longitude"));
+                me.sendMoveToRequest(gym.Latitude,gym.Latitude, gym.Id, infoWindow);
+            }) 
+
         });
 
         return infoWindow;

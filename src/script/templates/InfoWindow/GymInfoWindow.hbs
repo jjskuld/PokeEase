@@ -1,0 +1,49 @@
+﻿<div class="iw-wrap iw-gym iw-gym-{{getTeamCss OwnedByTeam}}">
+    <div class="iw-status">{{getTeam OwnedByTeam}}</div>
+    <img src="images/gui/{{toLowerCase (getTeam OwnedByTeam)}}-icon.png" alt="{{getTeam OwnedByTeam}} icon" class="iw-icon iw-icon-pokestop" />
+    <div class="iw-header iw-name">
+        <span class="iw-detail-value">{{default Name "Unknown"}}</span>
+        <span class="iw-detail-header">GYM</span>
+    </div>
+    <div class="iw-content">
+
+        <div class="iw-detail iw-gym-level" >
+            <span class="iw-detail-header">Level</span>
+            <span class="iw-detail-value">{{GymLevel}}</span>
+        </div>
+        <div class="iw-detail iw-gym-xp" >
+            <span class="iw-detail-header">XP</span>
+            <span class="iw-detail-value">{{GymPoints}} / {{NextGymLevelRequired}}</span>
+        </div>
+
+        <hr class="iw-gym-hr-general"  />
+        {{#if_eq OwnedByTeam 0}}
+
+        {{else}}
+        <div class="iw-detail iw-gym-defender" >
+            <span class="iw-detail-header">Defender</span>
+            <span class="iw-detail-value">
+                <img alt="Defender pokemon" class="iw-gym-defender-icon" src="images/pokemon/{{GuardPokemonId}}.png" />
+                <span class="iw-gym-defender-name">{{DefenderName}}</span>
+            </span>
+        </div>
+        <div class="iw-detail iw-gym-defender-cp" >
+            <span class="iw-detail-header">CP</span>
+            <span class="iw-detail-value">{{GuardPokemonCp}}</span>
+        </div>
+        <hr class="iw-gym-hr-defender"  />
+        {{/if_eq}}
+        <div class="iw-detail iw-latitude">
+            <span class="iw-detail-header">Latitude</span>
+            <span class="iw-detail-value">{{Latitude}}</span>
+        </div>
+        <div class="iw-detail iw-longitude">
+            <span class="iw-detail-header">Longitude</span>
+            <span class="iw-detail-value">{{Longitude}}</span>
+        </div>
+        <a id="fort_{{Id}}" title="Order the bot move to {{default Name "Unknown"}} now" class="iw-gym-move-to" rel="{{Id}}" data-fortId="{{Id}}" data-latitude="{{Latitude}}" data-longitude="{{Longitude}}">
+                <img src="images/move.svg" width="30px" height="30px">
+        </a>
+    </div>
+    <img src="images/gui/{{toLowerCase (getTeam OwnedByTeam)}}.png" alt="{{getTeam OwnedByTeam}} team emblem" class="iw-gym-team-emblem iw-gym-team-emblem-{{getTeamCss OwnedByTeam}}" />
+</div>

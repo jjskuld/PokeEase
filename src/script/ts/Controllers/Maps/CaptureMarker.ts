@@ -3,13 +3,17 @@
     private latlng: google.maps.LatLng;
     private div: HTMLElement;
     private args: any;
+    private map :google.maps.Map;
+    private current: IPokemonCaptureEvent;
 
-    constructor(latlng: google.maps.LatLng, map: google.maps.Map, args: any) {
+    constructor(latlng: google.maps.LatLng, map: google.maps.Map, sender: IPokemonCaptureEvent , args: any) {
         super();
 
 	    this.latlng = latlng;
 	    this.args = args;
 	    this.setMap(map);
+        this.map = map;
+        this.current = sender;
     }
 
     public draw() {
@@ -21,6 +25,7 @@
 		    var innerdiv = document.createElement('div');
 
 		    var d = $(div);
+          
 		    var i = $(innerdiv);
 
 		    d.addClass('marker');
@@ -44,14 +49,24 @@
 		    })
 
 		    d.append(i);
-
-		    /*google.maps.event.addDomListener(div, "click", function(event) {
-			    alert('You clicked on a custom marker!');
+		    
+            var panes = this.getPanes();
+		    panes.overlayMouseTarget.appendChild(div);
+            var me = this;
+            let map = this.map;
+            let pokemonName = this.args.Name;
+            let popupData :IPokemonInfoPopupData = this.current;
+            popupData.Name = pokemonName;
+            popupData.PokemonId = this.args.PokemonId;
+            google.maps.event.addDomListener(div, "click", function(event) {
+			    var infowindow = new google.maps.InfoWindow({
+                  content:  app.templates.PokemonInfoPopup(popupData)
+                });
+                 infowindow.open(map, me);
+                 window.setIwStyles();
+                 event.stopPropagation();
 			    google.maps.event.trigger(self, "click");
-		    });*/
-
-		    var panes = this.getPanes();
-		    panes.overlayLayer.appendChild(div);
+		    });
 	    }
 
 	    var point = this.getProjection().fromLatLngToDivPixel(this.latlng);

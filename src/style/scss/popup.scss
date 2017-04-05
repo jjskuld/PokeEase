@@ -1,0 +1,67 @@
+﻿@import "_color.scss";
+
+.iw-wrap {
+    &.iw-pokemon{
+        border-style:solid;
+        border-width:1px;
+    }
+    &.iw-VeryCommon {
+        .iw-status {
+            background-color: $color-pokemon-very-common;
+        }
+        border-color:$color-pokemon-very-common;
+    }
+
+    &.iw-Common {
+        .iw-status {
+            background-color: $color-pokemon-common;
+        }
+        border-color:$color-pokemon-common;
+    }
+
+    &.iw-Popular {
+        .iw-status {
+            background-color: $color-pokemon-popular;
+        }
+        border-color:$color-pokemon-popular;
+    }
+
+    &.iw-Rare {
+        .iw-status {
+            background-color: $color-pokemon-rare;
+        }
+        border-color:$color-pokemon-rare;
+    }
+
+    &.iw-VeryRare {
+        .iw-status {
+            background-color: $color-pokemon-very-rare;
+        }
+        border-color:$color-pokemon-very-rare;
+    }
+
+    &.iw-Special {
+        .iw-status {
+            background-color: $color-pokemon-special;
+        }
+        border-color:  $color-pokemon-special;
+    }
+
+    &.iw-Epic {
+        .iw-status {
+            background-color: $color-pokemon-epic;
+        }
+        border-color:  $color-pokemon-epic;
+    }
+
+    &.iw-Legendary {
+        .iw-status {
+            background-color: $color-pokemon-legendary;
+        }
+        border-color:  $color-pokemon-legendary;
+    }
+}
+
+#current-position-move{
+    cursor:pointer;
+}

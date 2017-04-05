@@ -5,7 +5,6 @@ interface IFortUsedEvent extends IUpdatePositionEvent {
     InventoryFull: boolean;
     Items: string;
     Name: string;
-
     ItemsList: IFortItem[];
 }
 
