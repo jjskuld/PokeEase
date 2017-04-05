@@ -96,6 +96,13 @@
         itemCodes[201] = "ItemRevive";
         itemCodes[202] = "ItemMaxRevive";
         itemCodes[701] = "ItemRazzBerry";
+        itemCodes[703] = "ItemNanabBerry";
+        itemCodes[705] = "ItemPinapBerry";
+        itemCodes[1101] = "ItemSunStone";
+        itemCodes[1102] = "ItemKingsRock";
+        itemCodes[1103] = "ItemMetalCoat";
+        itemCodes[1104] = "ItemDragonScale";
+        itemCodes[1105] = "ItemUpGrade";
         StaticData.itemCodes = itemCodes;
 
         const itemIds: number[] = [];
@@ -110,6 +117,13 @@
         itemIds["ItemRevive"] = 201;
         itemIds["ItemMaxRevive"] = 202;
         itemIds["ItemRazzBerry"] = 701;
+        itemIds["ItemNanabBerry"] = 703;
+        itemIds["ItemPinapBerry"] = 705;
+        itemIds["ItemSunStone"] = 1101;
+        itemIds["ItemKingsRock"] = 1102;
+        itemIds["ItemMetalCoat"] = 1103;
+        itemIds["ItemDragonScale"] = 1104;
+        itemIds["ItemUpGrade"] = 1105;
         StaticData.itemIds = itemIds;
 
         StaticData.berryIds = [701];

@@ -1,10 +1,4 @@
-﻿/// <reference path="../../externaltypings/es6-promise/es6-promise.d.ts" />
-/// <reference path="../../externalTypings/jquery/jquery.d.ts" />
-/// <reference path="../../externalTypings/lodash/lodash.d.ts" />
-/// <reference path="../../externalTypings/leaflet/leaflet.d.ts" />
-/// <reference path="../../externalTypings/moment/moment.d.ts" />
-/// <reference path="../../externalTypings/googlemaps/google.maps.d.ts" />
-/// <reference path="../../externaltypings/jsoneditoronline/jsoneditoronline.d.ts" />
+﻿/// <reference path="../../../typings/index.d.ts" />
 
 
 $(() => {
@@ -42,6 +36,14 @@ $(() => {
         exampleButton: $("#show-notification-toast-example-button"),
         translationController: translationController,
         notificationSettings: settings.notificationsToast,
+        settingsService: settingsService
+    });
+
+    const audioNotificationController = new AudioNotificationController({
+        container: $("#hiddenAudio")[0],
+        exampleButton: $("#show-notification-audio-example-button"),
+        translationController: translationController,
+        notificationSettings: settings.notificationsAudio,
         settingsService: settingsService
     });
 
@@ -99,7 +101,8 @@ $(() => {
         followPlayer: settings.mapFolllowPlayer,
         translationController: translationController,
         mapElement: $("#map"),
-        infoWindowTemplate: $("#iw-template")
+        infoWindowTemplate: $("#iw-template"),
+        requestSender: client
     };
 
     const useGoogleMap = settings.mapProvider === MapProvider.GMaps;
@@ -114,7 +117,8 @@ $(() => {
         notificationControllers: [
             journalNotificationController,
             desktopNotificationController,
-            toastNotificationController
+            toastNotificationController,
+            audioNotificationController
         ],
         mainMenuController: mainMenuController,
         pokemonMenuController: pokemonMenuController,

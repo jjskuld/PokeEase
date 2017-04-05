@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "ion.rangeslider": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/ion.rangeSlider/ion.rangeSlider.d.ts"
+  }
+}

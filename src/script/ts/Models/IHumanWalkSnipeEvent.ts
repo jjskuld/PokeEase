@@ -37,26 +37,40 @@ interface ISnipePokemonInfo{
 
 interface IHumanWalkSnipeListEvent {
     Pokemons: ISnipePokemonInfo[]
-}
-interface IHumanWalkSnipeEvent extends IEvent {
+}                                            
+interface IHumanWalkSnipeEvent extends IEvent{
     Latitude: number;
     Longitude: number; 
     Distance: number;
-    CatchPokemon: Boolean;
-    CurrentBalls: number;
     Estimate: number;
     Expires: number;
+    PokemonId: number;
+    UniqueId: string;
+    CatchPokemon: Boolean;
+    CurrentBalls: number;
     MinBallsToSnipe: number;
     NearestDistance: number;
     PauseDuration: number;
-    PokemonId: number;
     Pokemons: any;
     Pokestops: any;
     Setting: any;
     SpinPokeStop: boolean;
     Timestamp: number;
     Type: HumanWalkEventTypes;
-    UniqueId: string;
     WalkSpeedApplied: number;
     WalkTimes: number;
+    Rarity?:string;
+}
+ interface IHumanWalkSnipeStartEvent extends IEvent{
+    Latitude: number;
+    Longitude: number; 
+    PokemonId: number;
+    PokemonName?:string;
+    Distance:number;
+    Estimated: number;
+    Rarity?:string;
+ }
+ interface IHumanWalkSnipeReachedEvent extends IEvent{
+    UniqueId:string;
+    PauseDuration: number; 
 }
